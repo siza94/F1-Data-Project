@@ -64,7 +64,13 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 
 ---
 
-## 📸 Sample Visuals
+## 📸 Solution architecture & Master Pipeline 
+
+<p align="center">
+  <img src="Project_solution_architect.png" width="600">
+  <br />
+  <em>Azure Databricks solution architecture</em>
+</p>
 
 <p align="center">
   <img src="ADF_parent_pipeline.png" width="600">
@@ -77,7 +83,7 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 ## 📌 Status
 
 🟢 Completed  
-📘 Documentation in progress  
+📘 Documentation summary ()  
 📈 Open for learning and iteration
 
 ---
