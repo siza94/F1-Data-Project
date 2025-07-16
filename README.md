@@ -6,7 +6,7 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 
 ---
 
-## 🚀 Technologies Used
+## 🛠️ Technologies Used
 
 - **Azure Databricks** – Notebooks, Spark SQL, PySpark
 - **Delta Lake** – ACID-compliant data versioning
@@ -56,7 +56,7 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 
 ---
 
-## ✅ Key Learning Outcomes
+## 💡 Key Learning Outcomes
 
 - Implemented a Lakehouse architecture using **Delta Lake**
 - Worked with PySpark, schema enforcement, partitioning
