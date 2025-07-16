@@ -1,4 +1,4 @@
-# 🏎️ Formula 1 Cloud Data Platform — Azure Databricks Data Engineering Project
+# 🏎️ Formula 1 Azure Databricks Data Engineering Project
 
 This project demonstrates a complete **end-to-end cloud data engineering solution** using **Azure Databricks**, **Delta Lake**, and **Azure Data Factory (ADF)**, based on real-world Formula 1 racing data using the Ergast API.
 
@@ -44,21 +44,23 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 
 ## 🧱 Project Structure
 
-/set-up    # Notebooks used to set up and configure how Databricks access Azure Data Lake Gen2 storage.
+set-up    # Notebooks used to set up and configure how Databricks access Azure Data Lake Gen2 storage.
 
-/dataset   # Contains datasets used
+dataset   # Contains datasets used
 
-/ingestion # Notebooks used to ingest data on Databricks
+bronze   # Contains dataset ingestion into data lake
 
-/trans     # Notebooks used to transform data on Databricks
+ingestion # Notebooks used to ingest data on Databricks
 
-/analysis  # Data Visualization using SQL
+trans     # Notebooks used to transform data on Databricks
 
-/utils     # SQL Incremental load preparation
+analysis  # Data Visualization using SQL
 
-/includes  # Some common configurations that we can use from others notebooks
+utils     # SQL Incremental load preparation
 
-/demo      # Some tasks used to validate all project
+includes  # Some common configurations that we can use from others notebooks
+
+demo      # Some tasks used to validate all project
 
 ---
 
