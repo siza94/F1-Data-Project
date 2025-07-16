@@ -80,11 +80,9 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 
 ---
 
-## 📌 Status
+## 📘 Documentation
 
-🟢 Completed  
-📘 Documentation summary ()  
-📈 Open for learning and iteration
+[Project Walkthrough (PDF)](./Azure_databricks_data_engineering_project.pdf)
 
 ---
 
