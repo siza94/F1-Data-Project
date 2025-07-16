@@ -90,7 +90,7 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 ## 👨🏽‍💻 Author
 
 **Sithsaba Zantsi**  
-_Cloud & Data Engineer_  
+_Cloud Data Engineer_  
 📫 [Connect on LinkedIn](https://www.linkedin.com/in/sithsaba-zantsi/)
 
 ---
