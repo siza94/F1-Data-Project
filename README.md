@@ -45,12 +45,19 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 ## 🧱 Project Structure
 
 /set-up    # Notebooks used to set up and configure how Databricks access Azure Data Lake Gen2 storage.
+
 /dataset   # Contains datasets used
+
 /ingestion # Notebooks used to ingest data on Databricks
+
 /trans     # Notebooks used to transform data on Databricks
+
 /analysis  # Data Visualization using SQL
+
 /utils     # SQL Incremental load preparation
+
 /includes  # Some common configurations that we can use from others notebooks
+
 /demo      # Some tasks used to validate all project
 
 ---
