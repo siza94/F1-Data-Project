@@ -1,8 +1,8 @@
 # 🏎️ Formula 1 Cloud Data Platform — Azure Databricks Data Engineering Project
 
-This project demonstrates a complete **end-to-end cloud data engineering solution** using **Azure Databricks**, **Delta Lake**, and **Azure Data Factory (ADF)**, based on real-world Formula 1 racing data.
+This project demonstrates a complete **end-to-end cloud data engineering solution** using **Azure Databricks**, **Delta Lake**, and **Azure Data Factory (ADF)**, based on real-world Formula 1 racing data using the Ergast API.
 
-The goal is to ingest, transform, and analyze structured and semi-structured data to generate insights like driver standings, constructor rankings, and race outcomes — aligned with modern **lakehouse architecture** and **data engineering best practices**.
+The goal is to ingest, transform, and analyze structured and semi-structured data to generate insights like driver standings, constructor rankings, and race outcomes that is aligned with modern **lakehouse architecture** and **data engineering best practices**.
 
 ---
 
@@ -12,8 +12,8 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 - **Delta Lake** – ACID-compliant data versioning
 - **Azure Data Factory** – Pipeline orchestration
 - **Azure Data Lake Storage Gen2 (ADLS)** – Cloud storage
-- **Unity Catalog** – (Optional) Governance and lineage
-- **Power BI** – (Optional) Visual reporting
+- **Unity Catalog** – Governance and lineage
+- **Power BI** – Visual reporting
 
 ---
 
@@ -44,14 +44,14 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 
 ## 🧱 Project Structure
 
-/set-up              # Notebooks used to set up and configure how Databricks access Azure Data Lake Gen2 storage.
-/dataset             # Contains datasets used
-/ingestion           # Notebooks used to ingest data on Databricks
-/trans               # Notebooks used to transform data on Databricks
-/analysis            # Data Visualization using SQL
-/utils               # SQL Incremental load preparation
-/includes            # Some common configurations that we can use from others notebooks
-/demo                # Some tasks used to validate all project
+/set-up    # Notebooks used to set up and configure how Databricks access Azure Data Lake Gen2 storage.
+/dataset   # Contains datasets used
+/ingestion # Notebooks used to ingest data on Databricks
+/trans     # Notebooks used to transform data on Databricks
+/analysis  # Data Visualization using SQL
+/utils     # SQL Incremental load preparation
+/includes  # Some common configurations that we can use from others notebooks
+/demo      # Some tasks used to validate all project
 
 ---
 
@@ -67,7 +67,7 @@ The goal is to ingest, transform, and analyze structured and semi-structured dat
 ## 📸 Sample Visuals
 
 <p align="center">
-  <img src="screenshots/ADF_parent_pipeline.png" width="600">
+  <img src="ADF_parent_pipeline.png" width="600">
   <br />
   <em>Master ADF pipeline orchestrating ingestion and transformation</em>
 </p>
