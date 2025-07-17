@@ -14,3 +14,4 @@ races_filtered_df = races_df.filter("race_year = 2019 and round <= 5")
 display(races_filtered_df)
 
 # COMMAND ----------
+
