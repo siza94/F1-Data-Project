@@ -44,34 +44,26 @@ spark.sql(f"""
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC MERGE INTO f1_gold.calculated_race_results tgt
-# MAGIC USING race_results_updated src
-# MAGIC ON tgt.driver_name = src.driver_name AND tgt.race_year = src.race_year
-# MAGIC WHEN MATCHED THEN
+spark.sql("""
+            MERGE INTO f1_gold.calculated_race_results tgt
+            USING race_results_updated src
+            ON (tgt.driver_id = src.driver_id AND tgt.race_id = src.race_id)
+            WHEN MATCHED THEN
+              UPDATE SET tgt.position = src.position,
+                         tgt.points = src.points,
+                         tgt.calculated_points = src.calculated_points,
+                         tgt.updated_date = current_timestamp
+            WHEN NOT MATCHED THEN
+              INSERT (race_year, team_name, driver_id, driver_name, race_id, position, points, calculated_points, created_date)
+              VALUES (race_year, team_name, driver_id, driver_name, race_id, position, points, calculated_points, current_timestamp)
+""")
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE TABLE f1_gold.calculated_race_results
-# MAGIC USING parquet
-# MAGIC AS
-# MAGIC SELECT races.race_year,
-# MAGIC       constructors.name AS team_name,
-# MAGIC       drivers.name AS driver_name,
-# MAGIC       results.position,
-# MAGIC       results.points,
-# MAGIC       11 - results.position AS calculated_points
-# MAGIC FROM results
-# MAGIC JOIN f1_silver.drivers ON (results.driver_id = drivers.driver_id)
-# MAGIC JOIN f1_silver.constructors ON (results.constructor_id = constructors.constructor_id)
-# MAGIC JOIN f1_silver.races ON (results.race_id = races.race_id)
-# MAGIC WHERE results.position <= 10
+# MAGIC SELECT COUNT(1) FROM race_results_updated;
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM f1_gold.calculated_race_results
-
-# COMMAND ----------
-
+# MAGIC SELECT COUNT(1) FROM f1_gold.calculated_race_results;
