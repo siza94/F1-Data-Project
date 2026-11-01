@@ -3,41 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart City AWS Streaming Pipeline — Executive &amp; Recruiter Showcase Deck</title>
+<title>Formula 1 Azure Databricks Lakehouse — Executive &amp; Recruiter Showcase Deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,600;0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg-deep: #070D1F;
-  --bg-card: #0F172A;
-  --bg-elevated: #1E293B;
-  --border: #334155;
-  --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
-  --aws-orange: #FF9900;
-  --lidar-cyan: #00E5FF;
-  --signal-green: #10B981;
-  --alert-red: #EF4444;
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --fia-navy: #001E50;
+  --fia-navy-deep: #001538;
+  --fia-blue: #0055A4;
+  --fia-blue-bright: #1D63B8;
+  --fia-blue-soft: #EBF3FC;
+  --bg-page: #F4F7FB;
+  --bg-card: #FFFFFF;
+  --bg-subtle: #EDF2F9;
+  --border: #D5E0EE;
+  --border-strong: #B0C4DE;
+  --text-main: #0F1E36;
+  --text-body: #334766;
+  --text-muted: #5E7394;
+  --fia-gold: #B8860B;
+  --fia-teal: #0D9488;
+  --font-display: 'Titillium Web', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  background: radial-gradient(circle at 15% 15%, #132247 0%, var(--bg-deep) 60%);
+  background: linear-gradient(180deg, #E8EFF8 0%, var(--bg-page) 260px);
   color: var(--text-main);
   font-family: var(--font-body);
   min-height: 100vh;
-  line-height: 1.55;
+  line-height: 1.56;
 }
 .wrap { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
 .deck-header {
-  background: rgba(7, 13, 31, 0.92);
-  backdrop-filter: blur(10px);
-  border-bottom: 2px solid var(--aws-orange);
+  background: var(--fia-navy);
+  border-bottom: 3px solid var(--fia-blue-bright);
+  box-shadow: 0 2px 12px rgba(0, 30, 80, 0.14);
   position: sticky;
   top: 0;
   z-index: 20;
@@ -46,78 +51,87 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 60px;
+  min-height: 62px;
   gap: 16px;
   flex-wrap: wrap;
   padding-top: 8px;
   padding-bottom: 8px;
 }
 .brand {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 17.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 16px;
-  letter-spacing: -0.01em;
 }
-.pulse {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--lidar-cyan);
-  box-shadow: 0 0 10px var(--lidar-cyan);
+.brand .fia-pill {
+  background: var(--fia-blue);
+  color: #FFFFFF;
+  font-style: italic;
+  padding: 2px 10px;
+  border-radius: 2px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(255,255,255,0.25);
 }
+
 .persona-bar {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.08);
   padding: 4px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .persona-label {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-muted);
+  color: #CBD5E1;
   padding: 0 8px;
 }
 .persona-btn {
   background: transparent;
   border: none;
-  color: var(--text-muted);
+  color: #CBD5E1;
   font-family: var(--font-display);
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
   padding: 6px 12px;
-  border-radius: 4px;
+  border-radius: 3px;
   cursor: pointer;
   transition: all 0.15s;
 }
+.persona-btn:hover { color: #FFFFFF; background: rgba(255,255,255,0.1); }
 .persona-btn.active {
-  background: var(--aws-orange);
-  color: #070D1F;
-  font-weight: 700;
+  background: var(--fia-blue-bright);
+  color: #FFFFFF;
 }
 
 .persona-callout {
-  background: linear-gradient(90deg, rgba(0,229,255,0.12), rgba(255,153,0,0.10));
-  border: 1px solid rgba(0,229,255,0.35);
-  border-left: 4px solid var(--lidar-cyan);
-  border-radius: 6px;
-  padding: 14px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-left: 5px solid var(--fia-navy);
+  box-shadow: 0 4px 14px rgba(0, 30, 80, 0.05);
+  padding: 16px 22px;
   margin: 22px 0 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
+  border-radius: 0 4px 4px 0;
 }
 .persona-callout .tag-who {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--lidar-cyan);
+  color: var(--fia-blue);
+  font-weight: 600;
   text-transform: uppercase;
   display: block;
   margin-bottom: 3px;
@@ -125,8 +139,8 @@ body {
 .persona-callout p {
   margin: 0;
   font-size: 14.5px;
-  color: #E2E8F0;
-  max-width: 820px;
+  color: var(--text-body);
+  max-width: 810px;
 }
 
 .slide-nav {
@@ -144,28 +158,31 @@ body {
   border: 1px solid var(--border);
   color: var(--text-muted);
   padding: 12px 14px;
-  border-radius: 6px;
   cursor: pointer;
   text-align: left;
   font-family: var(--font-display);
   transition: all 0.15s;
+  border-radius: 3px;
 }
-.slide-tab:hover { border-color: var(--lidar-cyan); color: var(--text-main); }
+.slide-tab:hover { border-color: var(--fia-blue); color: var(--fia-navy); background: var(--fia-blue-soft); }
 .slide-tab.active {
-  background: var(--bg-elevated);
-  border-color: var(--aws-orange);
-  border-bottom: 3px solid var(--aws-orange);
-  color: #fff;
+  background: var(--fia-navy);
+  border-color: var(--fia-navy);
+  border-top: 3px solid var(--fia-gold);
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 30, 80, 0.12);
 }
 .slide-tab .num {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--aws-orange);
+  color: var(--fia-blue);
   display: block;
 }
+.slide-tab.active .num { color: #93C5FD; }
 .slide-tab .title {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
+  text-transform: uppercase;
   margin-top: 2px;
   display: block;
 }
@@ -174,37 +191,41 @@ body {
 .slide.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; }
-.slide-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--aws-orange); text-transform: uppercase; letter-spacing: 0.06em; }
-.slide-title { font-size: clamp(26px, 3.6vw, 38px); margin: 6px 0 12px; }
-.slide-sub { color: var(--text-muted); font-size: 16px; max-width: 760px; margin: 0 0 28px; }
+h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; text-transform: uppercase; color: var(--fia-navy); }
+.slide-eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--fia-blue); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.slide-title { font-size: clamp(28px, 3.8vw, 40px); margin: 6px 0 12px; font-weight: 900; color: var(--fia-navy); }
+.slide-sub { color: var(--text-body); font-size: 16px; max-width: 800px; margin: 0 0 28px; }
 
 .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
 @media (max-width: 820px) { .kpi-grid, .two-col, .three-col { grid-template-columns: 1fr !important; } }
 .kpi-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-top: 3px solid var(--lidar-cyan);
+  border-top: 4px solid var(--fia-navy);
   padding: 20px;
-  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 30, 80, 0.04);
 }
-.kpi-card.orange { border-top-color: var(--aws-orange); }
-.kpi-card.green { border-top-color: var(--signal-green); }
-.kpi-card .val { font-family: var(--font-display); font-size: 30px; font-weight: 700; color: #fff; display: block; }
-.kpi-card .lbl { font-size: 13px; color: var(--text-muted); margin-top: 4px; display: block; }
+.kpi-card.blue { border-top-color: var(--fia-blue); }
+.kpi-card.teal { border-top-color: var(--fia-teal); }
+.kpi-card.gold { border-top-color: var(--fia-gold); }
+.kpi-card .val { font-family: var(--font-display); font-size: 32px; font-weight: 900; color: var(--fia-navy); display: block; }
+.kpi-card .lbl { font-size: 13px; color: var(--text-body); margin-top: 4px; display: block; }
 
-.two-col { display: grid; grid-template-columns: 1.2fr 1fr; gap: 22px; margin-bottom: 28px; }
+.two-col { display: grid; grid-template-columns: 1.15fr 1fr; gap: 22px; margin-bottom: 28px; }
 .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 28px; }
 
 .panel-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 22px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 30, 80, 0.04);
+  border-radius: 3px;
 }
-.panel-card h3 { font-size: 18px; margin-bottom: 10px; color: #fff; }
-.panel-card p { font-size: 14px; color: var(--text-muted); margin: 0 0 12px; }
+.panel-card h3 { font-size: 19px; margin-bottom: 10px; color: var(--fia-navy); }
+.panel-card p { font-size: 14px; color: var(--text-body); margin: 0 0 12px; }
+.panel-card code { font-family: var(--font-mono); font-size: 12px; background: var(--bg-subtle); padding: 2px 5px; color: var(--fia-navy); border-radius: 3px; }
 
+/* Medallion Interactive Nodes */
 .arch-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -215,73 +236,98 @@ h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; }
 .arch-node {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 6px;
   padding: 14px 12px;
   cursor: pointer;
   text-align: center;
   transition: all 0.15s;
+  border-radius: 3px;
 }
-.arch-node:hover { border-color: var(--lidar-cyan); }
+.arch-node:hover { border-color: var(--fia-blue); background: var(--fia-blue-soft); }
 .arch-node.selected {
-  background: rgba(255, 153, 0, 0.14);
-  border: 2px solid var(--aws-orange);
+  background: var(--fia-navy);
+  border: 2px solid var(--fia-blue-bright);
+  box-shadow: 0 4px 12px rgba(0, 30, 80, 0.15);
 }
-.arch-node .step { font-family: var(--font-mono); font-size: 10.5px; color: var(--aws-orange); display: block; }
-.arch-node .name { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: #fff; margin: 4px 0; display: block; }
-.arch-node .tech { font-family: var(--font-mono); font-size: 11px; color: var(--lidar-cyan); }
+.arch-node .step { font-family: var(--font-mono); font-size: 10.5px; color: var(--fia-blue); display: block; font-weight: 600; }
+.arch-node.selected .step { color: #93C5FD; }
+.arch-node .name { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--fia-navy); margin: 4px 0; display: block; text-transform: uppercase; }
+.arch-node.selected .name { color: #FFFFFF; }
+.arch-node .tech { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+.arch-node.selected .tech { color: #E2E8F0; }
 
 .sim-controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px; }
 .btn-action {
-  background: var(--aws-orange);
-  color: #070D1F;
-  border: none;
+  background: var(--fia-navy);
+  color: #FFFFFF;
+  border: 1px solid var(--fia-navy);
   font-family: var(--font-display);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 14px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+.btn-action:hover { background: var(--fia-blue); border-color: var(--fia-blue); }
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--fia-navy);
+  border: 1px solid var(--border-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
   font-size: 13.5px;
   padding: 10px 16px;
-  border-radius: 5px;
   cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
 }
-.btn-secondary {
-  background: var(--bg-elevated);
-  color: var(--text-main);
-  border: 1px solid var(--border);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 13px;
-  padding: 10px 14px;
-  border-radius: 5px;
-  cursor: pointer;
+.btn-secondary:hover { background: var(--fia-blue-soft); border-color: var(--fia-blue); }
+.btn-secondary.active-mode {
+  border-color: var(--fia-blue);
+  background: var(--fia-blue);
+  color: #FFFFFF;
 }
-.btn-secondary:hover { border-color: var(--lidar-cyan); }
 .code-box {
-  background: #050914;
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--lidar-cyan);
-  padding: 14px 16px;
+  background: var(--fia-navy-deep);
+  border: 1px solid var(--fia-navy);
+  border-left: 4px solid var(--fia-blue-bright);
+  padding: 16px 18px;
   font-family: var(--font-mono);
   font-size: 12px;
-  color: #A5F3FC;
+  color: #F0F5FA;
   overflow-x: auto;
-  border-radius: 4px;
   white-space: pre;
+  border-radius: 0 4px 4px 0;
 }
+
+.bar-row { margin-bottom: 14px; }
+.bar-label { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; font-family: var(--font-body); }
+.bar-track { height: 12px; background: var(--bg-subtle); border-radius: 2px; overflow: hidden; border: 1px solid var(--border); }
+.bar-fill { height: 100%; background: var(--fia-blue); transition: width 0.3s ease; }
 
 .badge-pill {
   display: inline-block;
   font-family: var(--font-mono);
   font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: rgba(16, 185, 129, 0.15);
-  color: #34D399;
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  margin: 2px 4px 2px 0;
+  padding: 4px 9px;
+  background: #ECFDF5;
+  color: #0F766E;
+  border: 1px solid #99F6E4;
+  margin: 3px 4px 3px 0;
+  border-radius: 3px;
 }
-.badge-pill.cyan {
-  background: rgba(0, 229, 255, 0.14);
-  color: #67E8F9;
-  border-color: rgba(0, 229, 255, 0.4);
+.badge-pill.blue {
+  background: var(--fia-blue-soft);
+  color: var(--fia-blue);
+  border-color: #BFDBFE;
+}
+.badge-pill.navy {
+  background: #E6ECF5;
+  color: var(--fia-navy);
+  border-color: #B0C4DE;
 }
 
 .deck-footer {
@@ -294,237 +340,203 @@ h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; }
   flex-wrap: wrap;
   gap: 14px;
 }
-.deck-footer a { color: var(--aws-orange); text-decoration: none; font-family: var(--font-mono); font-size: 12.5px; }
+.deck-footer a { color: var(--fia-blue); text-decoration: none; font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; }
+.deck-footer a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
 <header class="deck-header">
   <div class="wrap">
-    <div class="brand">
-      <span class="pulse"></span>
-      <span>SMART CITY AWS STREAMING · INTERACTIVE PORTFOLIO DECK</span>
-    </div>
+    <div class="brand"><span class="fia-pill">FIA F1</span> AZURE DATABRICKS MEDALLION LAKEHOUSE · SHOWCASE</div>
     <div class="persona-bar">
       <span class="persona-label">VIEWING AS:</span>
       <button class="persona-btn active" onclick="setPersona(this, 'recruiter')">👔 Recruiter</button>
       <button class="persona-btn" onclick="setPersona(this, 'manager')">⚙️ Lead Data Engineer</button>
-      <button class="persona-btn" onclick="setPersona(this, 'exec')">📈 Business Owner</button>
+      <button class="persona-btn" onclick="setPersona(this, 'exec')">🏁 Strategy Executive</button>
     </div>
   </div>
 </header>
 
 <main class="wrap">
 
-  <div class="persona-callout" id="persona-banner">
+  <div class="persona-callout">
     <div>
       <span class="tag-who" id="persona-tag">👔 Recruiter &amp; Talent Partner View</span>
-      <p id="persona-text"><strong>Why shortlist Sithsaba Zantsi?</strong> This project proves hands-on ownership of the enterprise streaming stack (<strong>Python, Apache Kafka, PySpark 3.5 Structured Streaming, Docker, and AWS S3/Glue/Athena/Redshift</strong>) — with strict schema contracts, watermarked stream-stream joins, and S3 compaction.</p>
+      <p id="persona-text"><strong>Why shortlist Sithsaba Zantsi?</strong> This project demonstrates end-to-end ownership of the <strong>Azure Enterprise Lakehouse stack (Azure Databricks, PySpark, Spark SQL, Delta Lake Bronze/Silver/Gold, Azure Data Factory, ADLS Gen2, Azure Key Vault, and Power BI)</strong> with incremental ACID merges.</p>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="smart_city_project_report.html" style="font-family:var(--font-mono);font-size:12px;color:#070D1F;background:var(--aws-orange);font-weight:700;white-space:nowrap;text-decoration:none;padding:7px 12px;border-radius:4px;">📘 Read 8-Phase Engineering Report →</a>
-      <a href="https://github.com/siza94/Smart-City-AWS-Streaming-Data-Engineering-Project" target="_blank" rel="noopener" style="font-family:var(--font-mono);font-size:12px;color:var(--aws-orange);white-space:nowrap;text-decoration:none;border:1px solid var(--aws-orange);padding:7px 12px;border-radius:4px;">💻 Source Code ↗</a>
+      <a href="f1_data_project_report.html" style="font-family:var(--font-mono);font-size:12px;color:#fff;background:var(--fia-blue);white-space:nowrap;text-decoration:none;padding:8px 14px;border-radius:3px;">Open 8-Phase Engineering Report →</a>
+      <a href="https://github.com/siza94/F1-Data-Project" target="_blank" rel="noopener" style="font-family:var(--font-mono);font-size:12px;color:var(--fia-navy);background:var(--bg-subtle);border:1px solid var(--border-strong);white-space:nowrap;text-decoration:none;padding:8px 14px;border-radius:3px;">GitHub Repo ↗</a>
     </div>
   </div>
 
-  <nav class="slide-nav" id="slide-nav">
-    <button class="slide-tab active" onclick="goSlide(0)"><span class="num">01 / PROBLEM &amp; IMPACT</span><span class="title">The Urban Mobility Challenge</span></button>
-    <button class="slide-tab" onclick="goSlide(1)"><span class="num">02 / ARCHITECTURE</span><span class="title">Interactive AWS &amp; Kafka Stack</span></button>
-    <button class="slide-tab" onclick="goSlide(2)"><span class="num">03 / LIVE SIMULATOR</span><span class="title">Corridor Stream &amp; Join Demo</span></button>
-    <button class="slide-tab" onclick="goSlide(3)"><span class="num">04 / ENGINEERING DECISIONS</span><span class="title">Ordering, Schemas &amp; Compaction</span></button>
+  <nav class="slide-nav">
+    <button class="slide-tab active" onclick="goSlide(0)"><span class="num">01 / PROBLEM &amp; VALUE</span><span class="title">Why Raw F1 Points Lie</span></button>
+    <button class="slide-tab" onclick="goSlide(1)"><span class="num">02 / LAKEHOUSE STACK</span><span class="title">Interactive Medallion &amp; ADF</span></button>
+    <button class="slide-tab" onclick="goSlide(2)"><span class="num">03 / ERA EQUALIZER</span><span class="title">Interactive Dominance Explorer</span></button>
+    <button class="slide-tab" onclick="goSlide(3)"><span class="num">04 / PRODUCTION RIGOR</span><span class="title">Delta Merge &amp; Edge Cases</span></button>
     <button class="slide-tab" onclick="goSlide(4)"><span class="num">05 / HIRE &amp; CONNECT</span><span class="title">Skills Matrix &amp; Codebase</span></button>
   </nav>
 
   <!-- SLIDE 1 -->
   <section class="slide active" id="slide-0">
-    <div class="slide-eyebrow">01 · Executive Problem Statement &amp; Business Value</div>
-    <h1 class="slide-title">Turning Fragmented Highway Sensors into Sub-Minute Urban Intelligence</h1>
-    <p class="slide-sub">UK drivers on the London–Birmingham corridor lose 59 to 101 hours annually to congestion (£7.5bn national impact). Legacy road loops detect slowdowns in isolation — our pipeline fuses 5 live IoT streams in real time so city operators know <em>why</em> traffic stopped and can dispatch emergency responders inside the 15-minute Golden Window.</p>
+    <div class="slide-eyebrow">01 · Executive Problem Statement &amp; Analytical Breakthrough</div>
+    <h1 class="slide-title">Solving 70 Years of Scoring Inflation &amp; Heterogeneous Race Telemetry</h1>
+    <p class="slide-sub">Between 1950 and 2010, the FIA inflated the points awarded for a Grand Prix victory by <strong>312.5%</strong> (from 8 points to 25 points) and expanded seasons from 7 races to 22+. Naive career totals make modern midfielders look statistically superior to Ayrton Senna or Alain Prost — until normalized inside an ACID Medallion Lakehouse.</p>
 
     <div class="kpi-grid">
-      <div class="kpi-card orange">
-        <span class="val">5 Streams</span>
-        <span class="lbl">Fused per vehicle tick (Vehicle, GPS, Camera, Weather, Emergency)</span>
-      </div>
       <div class="kpi-card">
-        <span class="val">3s → 60s</span>
-        <span class="lbl">Producer ingestion cadence with 60s S3 micro-batch compaction</span>
+        <span class="val">8 Sources</span>
+        <span class="lbl">CSV, single/multi-line JSON, nested STRUCTs, and split folders</span>
       </div>
-      <div class="kpi-card green">
-        <span class="val">2-Min SLA</span>
-        <span class="lbl">Spark event-time watermark handling out-of-order cellular packets</span>
+      <div class="kpi-card blue">
+        <span class="val">11 - Pos</span>
+        <span class="lbl">Gold-layer mathematical equalizer across all FIA eras (1950–2021)</span>
       </div>
-      <div class="kpi-card">
-        <span class="val">Dual BI</span>
-        <span class="lbl">Serverless Athena SQL + Redshift Star Schema for QuickSight</span>
+      <div class="kpi-card teal">
+        <span class="val">ACID Merge</span>
+        <span class="lbl">Idempotent race-weekend Delta Lake upserts with Partition Pruning</span>
+      </div>
+      <div class="kpi-card gold">
+        <span class="val">ADF Gated</span>
+        <span class="lbl">Metadata-driven pipelines with Azure Key Vault + Service Principal auth</span>
       </div>
     </div>
 
     <div class="two-col">
       <div class="panel-card">
-        <h3>What Breaks in Traditional Municipal Traffic Systems?</h3>
-        <p>Most city transport authorities operate siloed feeds: highway loop detectors measure speed, meteorological agencies log weather hourly, and emergency dispatch logs 999 incidents in a separate CAD database.</p>
-        <p>When corridor speed drops to <strong>24.88 mph</strong> on the M6, operators waste 12–18 minutes manually correlating feeds. By streaming all 5 domains through <strong>Apache Kafka</strong> keyed by <code>deviceId</code> and joining them inside <strong>Spark Structured Streaming</strong>, incident context arrives already fused in S3 and QuickSight.</p>
+        <h3>The Engineering Challenge</h3>
+        <p>Formula 1 data arrives after every Grand Prix weekend in eight distinct shapes: flat CSVs (<code>circuits</code>, <code>races</code>), nested JSON objects (<code>drivers.json</code> with <code>name STRUCT&lt;forename, surname&gt;</code>), multi-line JSON (<code>pit_stops.json</code>), and multi-file split folders (<code>lap_times/</code> and <code>qualifying/</code>).</p>
+        <p>Re-running full historical loads every Sunday evening wastes cluster compute, while blind appends duplicate race results if a job retries. Our lakehouse solves this with parameterized <code>file_date</code> cutovers and <strong>Delta Lake <code>MERGE INTO</code></strong>.</p>
       </div>
       <div class="panel-card">
-        <h3>End-to-End Capabilities Demonstrated</h3>
+        <h3>Core Azure Lakehouse Stack Proven</h3>
         <div style="margin-top:8px">
-          <span class="badge-pill">Event-Driven IoT Ingestion</span>
-          <span class="badge-pill">Confluent Kafka 7.4 + ZooKeeper</span>
-          <span class="badge-pill">Docker Compose Multi-Node Spark</span>
-          <span class="badge-pill">Watermarked Stream-Stream Joins</span>
-          <span class="badge-pill">S3A Fault-Tolerant Checkpointing</span>
-          <span class="badge-pill">AWS Glue Schema Crawling</span>
-          <span class="badge-pill">Amazon Athena &amp; Redshift Star Schema</span>
-          <span class="badge-pill">Amazon QuickSight Operational BI</span>
+          <span class="badge-pill navy">Azure Databricks (PySpark &amp; SQL)</span>
+          <span class="badge-pill blue">Delta Lake ACID Merge</span>
+          <span class="badge-pill">Azure Data Factory (ADF)</span>
+          <span class="badge-pill">ADLS Gen2 Medallion Storage</span>
+          <span class="badge-pill">Azure Key Vault + Entra SP</span>
+          <span class="badge-pill blue">Dynamic Partition Pruning</span>
+          <span class="badge-pill">SQL Window Ranking Specs</span>
+          <span class="badge-pill navy">Power BI Executive Reporting</span>
         </div>
-        <p style="margin-top:14px;font-size:13px;color:var(--text-muted)">Use the tabs above or press <code>→</code> on your keyboard to inspect the interactive architecture and live stream simulator.</p>
+        <p style="margin-top:14px;font-size:13px;color:var(--text-muted)">Click through the tabs above or use <code>←</code> / <code>→</code> arrow keys to test the Interactive Era Equalizer and Medallion Architecture.</p>
       </div>
     </div>
   </section>
 
   <!-- SLIDE 2 -->
   <section class="slide" id="slide-1">
-    <div class="slide-eyebrow">02 · Interactive System Architecture</div>
-    <h2 class="slide-title">Click Any Pipeline Stage to Inspect Design &amp; Production Trade-Offs</h2>
-    <p class="slide-sub">Every component was selected to balance real-time throughput, fault recovery, and strict AWS cloud cost governance.</p>
+    <div class="slide-eyebrow">02 · Interactive Medallion &amp; ADF Pipeline Explorer</div>
+    <h2 class="slide-title">Click Any Medallion Stage to Inspect Orchestration &amp; PySpark Logic</h2>
+    <p class="slide-sub">Designed to ingest weekly Grand Prix deltas idempotently while recomputing only the affected championship season.</p>
 
-    <div class="arch-grid" id="arch-nodes">
-      <div class="arch-node selected" onclick="selectArch(0)">
+    <div class="arch-grid">
+      <div class="arch-node selected" onclick="selectF1Arch(0)">
         <span class="step">STAGE 01</span>
-        <span class="name">IoT Python Producer</span>
-        <span class="tech">jobs/main.py</span>
+        <span class="name">ADF Gatekeeper</span>
+        <span class="tech">Get Metadata + If</span>
       </div>
-      <div class="arch-node" onclick="selectArch(1)">
+      <div class="arch-node" onclick="selectF1Arch(1)">
         <span class="step">STAGE 02</span>
-        <span class="name">Kafka + ZooKeeper</span>
-        <span class="tech">Confluent 7.4 Docker</span>
+        <span class="name">ADLS Gen2 Bronze</span>
+        <span class="tech">Cutover Folders</span>
       </div>
-      <div class="arch-node" onclick="selectArch(2)">
+      <div class="arch-node" onclick="selectF1Arch(2)">
         <span class="step">STAGE 03</span>
-        <span class="name">Spark 3.5 Streaming</span>
-        <span class="tech">Master + 2 Workers</span>
+        <span class="name">Silver Ingestion</span>
+        <span class="tech">8 PySpark Notebooks</span>
       </div>
-      <div class="arch-node" onclick="selectArch(3)">
+      <div class="arch-node" onclick="selectF1Arch(3)">
         <span class="step">STAGE 04</span>
-        <span class="name">AWS S3 Data Lake</span>
-        <span class="tech">Bronze + Silver Parquet</span>
+        <span class="name">Delta Lake MERGE</span>
+        <span class="tech">Partition Pruning</span>
       </div>
-      <div class="arch-node" onclick="selectArch(4)">
+      <div class="arch-node" onclick="selectF1Arch(4)">
         <span class="step">STAGE 05</span>
-        <span class="name">AWS Glue Catalog</span>
-        <span class="tech">Automated Crawlers</span>
+        <span class="name">Gold Marts &amp; Rank</span>
+        <span class="tech">Window Functions</span>
       </div>
-      <div class="arch-node" onclick="selectArch(5)">
+      <div class="arch-node" onclick="selectF1Arch(5)">
         <span class="step">STAGE 06</span>
-        <span class="name">Athena · Redshift · BI</span>
-        <span class="tech">QuickSight Dashboards</span>
+        <span class="name">Power BI &amp; SQL</span>
+        <span class="tech">Dominance Visuals</span>
       </div>
     </div>
 
     <div class="two-col">
       <div class="panel-card">
-        <h3 id="arch-detail-title">Stage 01: Multi-Sensor IoT Corridor Producer (`jobs/main.py`)</h3>
-        <p id="arch-detail-desc">Simulates a connected vehicle (`Vehicle-123`, Ford Focus ST) traversing the 100-step trajectory from London (`51.5074, -0.1278`) to Birmingham (`52.4862, -1.8904`) with deterministic seed `random.seed(45)` for reproducible analytics.</p>
-        <p id="arch-detail-why" style="color:#E2E8F0;font-size:13.5px;border-left:3px solid var(--aws-orange);padding-left:12px;"><strong>Key Architectural Decision:</strong> Messages are partitioned by <code>key=str(data['deviceId'])</code> so all events for a vehicle land in strict chronological order on the same Kafka partition.</p>
+        <h3 id="f1-arch-title">Stage 01: Azure Data Factory Master &amp; Gatekeeper Pipelines</h3>
+        <p id="f1-arch-desc">The parent pipeline (pl_process_formula1_data) chains ingestion before transformation. Inside pl_ingest_formula1_data, a Get Metadata activity verifies that the race weekend's cutover folder (e.g. 2021-03-28) exists in ADLS Gen2 before an If Condition launches the Databricks job cluster.</p>
+        <p id="f1-arch-why" style="color:var(--fia-navy);font-size:13.5px;border-left:3px solid var(--fia-blue);padding-left:12px;background:var(--fia-blue-soft);padding:10px 12px;"><strong>Why it matters:</strong> Prevents expensive Databricks cluster spin-up when a scheduled trigger fires on a non-race weekend.</p>
       </div>
-      <div class="code-box" id="arch-detail-code"># jobs/main.py — Partitioning by deviceId for strict ordering
-def produce_data_to_kafka(producer, topic, data):
-    producer.produce(
-        topic,
-        key=str(data['deviceId']),
-        value=json.dumps(data, default=json_serializer).encode('utf-8'),
-        on_delivery=delivery_report
-    )
-    producer.flush()</div>
+      <div class="code-box" id="f1-arch-code"># Parameterized Databricks Notebook Widgets (passed by ADF)
+dbutils.widgets.text("parameter_data_source", "Ergast API")
+variable_data_source = dbutils.widgets.get("parameter_data_source")
+
+dbutils.widgets.text("parameter_file_date", "2021-03-28")
+variable_file_date = dbutils.widgets.get("parameter_file_date")</div>
     </div>
   </section>
 
   <!-- SLIDE 3 -->
   <section class="slide" id="slide-2">
-    <div class="slide-eyebrow">03 · Interactive Corridor Telemetry Simulator</div>
-    <h2 class="slide-title">Test the Live London → Birmingham Stream &amp; Watermarked Join</h2>
-    <p class="slide-sub">Click a scenario below to emit a synchronized 5-topic tick for <code>Vehicle-123</code> and inspect how Spark Structured Streaming joins the raw Bronze payloads into a single Silver analytical row.</p>
+    <div class="slide-eyebrow">03 · Interactive Cross-Era Dominance Equalizer</div>
+    <h2 class="slide-title">Compare Raw FIA Classifications vs. Gold-Layer Era-Normalized Dominance</h2>
+    <p class="slide-sub">Toggle the scoring methodology and entity below to see why <code>f1_gold.calculated_race_results</code> (<code>11 - position</code>, <code>HAVING COUNT &gt;= 50</code>) is essential for executive sports analytics.</p>
 
     <div class="sim-controls">
-      <button class="btn-action" onclick="simStep('normal')">▶ Emit Normal Corridor Tick</button>
-      <button class="btn-secondary" onclick="simStep('weather')">🌧️ Inject Heavy Rain &amp; High AQI</button>
-      <button class="btn-secondary" onclick="simStep('emergency')">🚨 Trigger Active M6 Fire Incident</button>
-    </div>
-
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <span class="val" id="sim-coord">51.8010°N, -0.6566°W</span>
-        <span class="lbl" id="sim-step-lbl">Route Progress: Step 30 / 100 (M1 North)</span>
-      </div>
-      <div class="kpi-card orange">
-        <span class="val" id="sim-speed">24.88 mph</span>
-        <span class="lbl">Synchronized Vehicle &amp; GPS Speed</span>
-      </div>
-      <div class="kpi-card green" id="sim-weather-card">
-        <span class="val" id="sim-weather">Cloudy · 14.2°C</span>
-        <span class="lbl" id="sim-aqi">Air Quality Index: 68 (Moderate)</span>
-      </div>
-      <div class="kpi-card" id="sim-inc-card">
-        <span class="val" id="sim-inc">None (Clear)</span>
-        <span class="lbl" id="sim-inc-sub">Status: Resolved · S3 Partition Ready</span>
-      </div>
+      <button class="btn-secondary active-mode" id="btn-norm" onclick="setScoreMode('norm')">🔵 Gold Normalized (11 - Position Avg)</button>
+      <button class="btn-secondary" id="btn-raw" onclick="setScoreMode('raw')">🟡 Raw FIA Points (Distorted by 2010+ 25-pt Era)</button>
+      <button class="btn-action" onclick="toggleEntity()" id="btn-entity">Switch to Constructors View 🏎️</button>
     </div>
 
     <div class="two-col">
-      <div>
-        <h4 style="font-size:13px;font-family:var(--font-mono);color:var(--text-muted);margin-bottom:8px;">RAW KAFKA BRONZE TOPICS (5 CONCURRENT STREAMS)</h4>
-        <div class="code-box" id="sim-kafka-box">[topic: vehicle_data | key: "Vehicle-123"]
-{"deviceId": "Vehicle-123", "latitude": 51.8010, "longitude": -0.6566, "speed": 24.88}
-
-[topic: weather_data | key: "Vehicle-123"]
-{"deviceId": "Vehicle-123", "latitude": 51.8010, "longitude": -0.6566, "temperature": 14.2, "weatherCondition": "Cloudy", "airQualityIndex": 68.4}
-
-[topic: emergency_data | key: "Vehicle-123"]
-{"deviceId": "Vehicle-123", "type": "None", "status": "Resolved"}</div>
+      <div class="panel-card">
+        <h3 id="chart-heading">All-Time Dominant Drivers — Normalized Gold Layer (`AVG(11 - position)`)</h3>
+        <p id="chart-explain">Every P1 victory equals 10.0 points regardless of whether it occurred in 1955, 1988, or 2020. Legends from the 8-point and 9-point eras compete on equal mathematical footing.</p>
+        <div id="bars-container" style="margin-top:18px;"></div>
       </div>
       <div>
-        <h4 style="font-size:13px;font-family:var(--font-mono);color:var(--aws-orange);margin-bottom:8px;">JOINED SILVER PARQUET ROW (s3a://.../silver_corridor_telemetry)</h4>
-        <div class="code-box" id="sim-silver-box" style="border-left-color:var(--aws-orange);color:#FDE68A;">{
-  "device_id": "Vehicle-123",
-  "latitude": 51.8010,
-  "longitude": -0.6566,
-  "speed_mph": 24.88,
-  "temperature_c": 14.2,
-  "weather_condition": "Cloudy",
-  "air_quality_index": 68.4,
-  "incident_type": "None",
-  "incident_status": "Resolved",
-  "watermark_window": "±1 min matched"
-}</div>
+        <h4 style="font-size:12px;font-family:var(--font-mono);color:var(--fia-blue);margin-bottom:8px;">GOLD LAYER SPARK SQL QUERY EXECUTED</h4>
+        <div class="code-box" id="sql-preview">-- Formula1/analysis/1.find_dominant_driver.sql
+SELECT driver_name,
+       COUNT(1) AS number_of_races,
+       SUM(calculated_points) AS total_points,
+       ROUND(AVG(calculated_points), 2) AS average_points
+FROM f1_gold.calculated_race_results
+GROUP BY driver_name
+HAVING COUNT(1) &gt;= 50
+ORDER BY average_points DESC;</div>
       </div>
     </div>
   </section>
 
   <!-- SLIDE 4 -->
   <section class="slide" id="slide-3">
-    <div class="slide-eyebrow">04 · Core Engineering Decisions &amp; Trade-Offs</div>
-    <h2 class="slide-title">Designed for Schema Safety, Partition Ordering &amp; Cloud Cost Control</h2>
-    <p class="slide-sub">Three architectural decisions that keep the streaming pipeline resilient and cost-efficient in production.</p>
+    <div class="slide-eyebrow">04 · Production Engineering Rigor</div>
+    <h2 class="slide-title">Real-World Edge Cases &amp; Data Quality Engineering</h2>
+    <p class="slide-sub">How the lakehouse handles 1950s FIA shared-car rules, strict schema enforcement, and upstream API continuity.</p>
 
     <div class="three-col">
       <div class="panel-card">
-        <span class="badge-pill cyan">SCHEMA CONTRACT DESIGN</span>
-        <h3 style="margin-top:10px">Typed Geospatial Coordinates</h3>
-        <p><strong>Context:</strong> Passing coordinates as untyped 2-tuples <code>(lat, lon)</code> against numeric Spark schemas causes <code>from_json()</code> to coerce values to <code>NULL</code> and forces SQL string splitting in BI tools.</p>
-        <p><strong>Solution:</strong> Decomposed spatial coordinates into explicit <code>latitude: DoubleType</code> and <code>longitude: DoubleType</code> fields across all five schemas for zero-loss ingestion and native QuickSight mapping.</p>
+        <span class="badge-pill blue">DOMAIN EDGE CASE SOLVED</span>
+        <h3 style="margin-top:10px">1950s Shared-Car Deduplication</h3>
+        <p>In 1950s Formula 1, two drivers could share one car in the same Grand Prix, producing duplicate <code>(driver_id, race_id)</code> keys in raw <code>results.json</code> that violate Delta Lake's <code>MERGE INTO</code> uniqueness constraint.</p>
+        <p>Solved by enforcing <code>dropDuplicates(["driver_id", "race_id"])</code> in <code>5.ingest_results_file.py</code> prior to executing the Delta merge.</p>
       </div>
       <div class="panel-card">
-        <span class="badge-pill cyan">STATEFUL STREAM DESIGN</span>
-        <h3 style="margin-top:10px">Entity Partitioning &amp; Silver Join</h3>
-        <p><strong>Context:</strong> Kafka guarantees message ordering only within a single partition. Random UUID keys scatter a vehicle's telemetry across partitions.</p>
-        <p><strong>Solution:</strong> Partitioned all five Kafka topics by <code>deviceId</code> (<code>Vehicle-123</code>) and implemented a 2-minute watermarked stream-stream join producing the unified Silver corridor dataset alongside the 5 raw Bronze sinks.</p>
+        <span class="badge-pill navy">SCHEMA ENFORCEMENT</span>
+        <h3 style="margin-top:10px">Qualifying Split-JSON &amp; Merge Library</h3>
+        <p>Enforces explicit <code>StructType</code> schemas across all 8 ingestion pipelines, preserving formatted qualifying lap times (<code>"1:26.572"</code>) as <code>StringType()</code> in <code>8.ingest_qualifying_file.py</code>.</p>
+        <p>Centralizes Dynamic Partition Pruning and Delta upserts inside <code>Formula1/includes/common_functions.py</code>.</p>
       </div>
       <div class="panel-card">
-        <span class="badge-pill">CLOUD COST GOVERNANCE</span>
-        <h3 style="margin-top:10px">S3 Small-File Compaction</h3>
-        <p><strong>Context:</strong> Unthrottled streaming micro-batches write a tiny Parquet file every 3 seconds (~6,000 files/hr), inflating S3 <code>LIST</code> API costs and degrading Athena scan performance.</p>
-        <p><strong>Solution:</strong> Configured <code>.trigger(processingTime='60 seconds')</code> on all S3A writers, reducing S3 object creation by 20x while preserving sub-minute operational visibility.</p>
+        <span class="badge-pill">UPSTREAM CONTINUITY</span>
+        <h3 style="margin-top:10px">Jolpica-F1 &amp; Unity Catalog Ready</h3>
+        <p>Decouples the Bronze ADLS Gen2 landing zone from the upstream HTTP provider so the lakehouse transitions seamlessly from the retired Ergast API to <strong>Jolpica-F1</strong> and <strong>FastF1</strong> 3.7 Hz telemetry under <strong>Unity Catalog External Locations</strong>.</p>
       </div>
     </div>
   </section>
@@ -532,24 +544,24 @@ def produce_data_to_kafka(producer, topic, data):
   <!-- SLIDE 5 -->
   <section class="slide" id="slide-4">
     <div class="slide-eyebrow">05 · Candidate Profile &amp; Technical Matrix</div>
-    <h2 class="slide-title">Built by Sithsaba Zantsi — Cloud Data Engineer</h2>
-    <p class="slide-sub">Ready to design, build, and scale cloud-native streaming and lakehouse architectures across AWS and Azure.</p>
+    <h2 class="slide-title">Architected &amp; Built by Sithsaba Zantsi — Data Engineer</h2>
+    <p class="slide-sub">Combining PySpark &amp; Delta Lake lakehouse engineering with business-first analytical modeling.</p>
 
     <div class="two-col">
       <div class="panel-card">
-        <h3>Competency Mapping to Production Roles</h3>
-        <p><strong>Stream Processing &amp; Messaging:</strong> Apache Kafka, Confluent Server, ZooKeeper, PySpark 3.5 Structured Streaming, Watermarking, Stateful Stream-Stream Joins.</p>
-        <p><strong>AWS Data Engineering Stack:</strong> Amazon S3 (S3A Parquet &amp; Checkpointing), AWS Glue Crawlers &amp; Data Catalog, Amazon Athena Serverless SQL, Amazon Redshift Star Schema Modeling, Amazon QuickSight, IAM.</p>
-        <p><strong>DevOps &amp; Containerization:</strong> Multi-container Docker Compose networking (<code>datamasterylab</code>), environment secret isolation, schema contract validation.</p>
+        <h3>Azure &amp; Databricks Engineering Matrix</h3>
+        <p><strong>Lakehouse &amp; Distributed Compute:</strong> Azure Databricks, PySpark DataFrame API, Spark SQL, Delta Lake ACID Transactions (<code>MERGE INTO</code>, Dynamic Partition Pruning, Explicit Schema Enforcement).</p>
+        <p><strong>Cloud Orchestration &amp; Storage:</strong> Azure Data Factory (Parent/Child Pipelines, <code>Get Metadata</code>, <code>If Condition</code>, Tumbling Window Triggers), ADLS Gen2, Azure Key Vault, Unity Catalog.</p>
+        <p><strong>Analytical Modeling &amp; BI:</strong> Medallion Architecture (Bronze → Silver → Gold), SQL Window Functions (<code>rank() OVER</code>), Cross-Era Statistical Normalization, Power BI Dashboards.</p>
       </div>
       <div class="panel-card" style="display:flex;flex-direction:column;justify-content:space-between;">
         <div>
-          <h3>Explore the Engineering Report &amp; Source Code</h3>
-          <p>Review the full 8-phase engineering lifecycle report (covering Idea, Architecture, Requirements, Design, Development, Testing, Deployment, and Maintenance) or inspect the Python &amp; PySpark source code on GitHub.</p>
+          <h3>Step-by-Step Stakeholder Navigation</h3>
+          <p>Explore the complete 8-phase engineering lifecycle report for architectural trade-offs and schema specifications, or jump straight into the PySpark &amp; SQL source code on GitHub.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px;">
-          <a href="smart_city_project_report.html" class="btn-action" style="text-align:center;text-decoration:none;">📘 Open Full 8-Phase Engineering Report</a>
-          <a href="https://github.com/siza94/Smart-City-AWS-Streaming-Data-Engineering-Project" target="_blank" rel="noopener" class="btn-secondary" style="text-align:center;text-decoration:none;">💻 View GitHub Repository (siza94) ↗</a>
+          <a href="f1_data_project_report.html" class="btn-action" style="text-align:center;text-decoration:none;">📘 Step 1: Open Full 8-Phase Engineering Report →</a>
+          <a href="https://github.com/siza94/F1-Data-Project" target="_blank" rel="noopener" class="btn-secondary" style="text-align:center;text-decoration:none;">💻 Step 2: View Source Code on GitHub (siza94/F1-Data-Project) ↗</a>
           <a href="https://www.linkedin.com/in/sithsaba-zantsi/" target="_blank" rel="noopener" class="btn-secondary" style="text-align:center;text-decoration:none;">📫 Connect with Sithsaba Zantsi on LinkedIn ↗</a>
         </div>
       </div>
@@ -557,36 +569,36 @@ def produce_data_to_kafka(producer, topic, data):
   </section>
 
   <footer class="deck-footer">
-    <span style="font-size:13px;color:var(--text-muted)">Smart City AWS Streaming Data Engineering Project · Sithsaba Zantsi</span>
-    <div style="display:flex;gap:18px;">
-      <a href="smart_city_project_report.html">8-Phase Engineering Report</a>
-      <a href="https://github.com/siza94/Smart-City-AWS-Streaming-Data-Engineering-Project" target="_blank" rel="noopener">GitHub Source Code ↗</a>
+    <span style="font-size:13px;color:var(--text-muted)">Formula 1 Azure Databricks Data Engineering Project · Sithsaba Zantsi</span>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;">
+      <a href="f1_data_project_report.html">📘 8-Phase Engineering Report</a>
+      <a href="https://github.com/siza94/F1-Data-Project" target="_blank" rel="noopener">💻 GitHub Source Code ↗</a>
     </div>
   </footer>
 
 </main>
 
 <script>
-const personas = {
+const f1Personas = {
   recruiter: {
     tag: "👔 Recruiter & Talent Partner View",
-    text: "<strong>Why shortlist Sithsaba Zantsi?</strong> This project proves hands-on ownership of the enterprise streaming stack (<strong>Python, Apache Kafka, PySpark 3.5 Structured Streaming, Docker, and AWS S3/Glue/Athena/Redshift</strong>) — with strict schema contracts, watermarked stream-stream joins, and S3 compaction."
+    text: "<strong>Why shortlist Sithsaba Zantsi?</strong> This project demonstrates end-to-end ownership of the <strong>Azure Enterprise Lakehouse stack (Azure Databricks, PySpark, Spark SQL, Delta Lake Bronze/Silver/Gold, Azure Data Factory, ADLS Gen2, Azure Key Vault, and Power BI)</strong> with incremental ACID merges."
   },
   manager: {
     tag: "⚙️ Lead Data Engineer / Hiring Manager View",
-    text: "<strong>Engineering Depth Highlight:</strong> Look at Slide 03 & Slide 04 — all 5 Kafka topics are partitioned by <code>deviceId</code> for chronological ordering, coordinates are strongly typed as <code>DoubleType</code>, and Spark forks into 5 Bronze replay sinks plus a watermarked Silver stream-stream join."
+    text: "<strong>Engineering Depth Highlight:</strong> Inspect Slide 02 & Slide 04 — demonstrates the progression from driver-side <code>ALTER TABLE DROP PARTITION</code> loops to Dynamic Partition Overwrite and finally <strong>Delta Lake <code>MERGE INTO</code> with Dynamic Partition Pruning</strong> and 1950s shared-car deduplication."
   },
   exec: {
-    tag: "📈 Business & City Operations Executive View",
-    text: "<strong>Operational ROI Highlight:</strong> Fusing vehicle speed, weather, air quality, and emergency incidents in under 60 seconds cuts incident classification time from 18+ minutes to sub-minute visibility in Amazon QuickSight while keeping AWS compute spend minimal."
+    tag: "🏁 Strategy & Business Executive View",
+    text: "<strong>Analytical ROI Highlight:</strong> Raw F1 points are skewed by a 312.5% FIA scoring inflation in 2010. Our Gold layer normalizes 70+ years of race outcomes (<code>11 - position</code>) and recalculates only the active season on race weekends to minimize Azure compute spend."
   }
 };
 
 function setPersona(btn, key) {
   document.querySelectorAll('.persona-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('persona-tag').innerHTML = personas[key].tag;
-  document.getElementById('persona-text').innerHTML = personas[key].text;
+  document.getElementById('persona-tag').innerHTML = f1Personas[key].tag;
+  document.getElementById('persona-text').innerHTML = f1Personas[key].text;
 }
 
 function goSlide(idx) {
@@ -600,137 +612,199 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft' && activeIdx > 0) goSlide(activeIdx - 1);
 });
 
-const archData = [
+const f1ArchData = [
   {
-    title: "Stage 01: Multi-Sensor IoT Corridor Producer (jobs/main.py)",
-    desc: "Simulates a connected vehicle (Vehicle-123, Ford Focus ST) traversing the 100-step trajectory from London (51.5074, -0.1278) to Birmingham (52.4862, -1.8904) with deterministic seed random.seed(45).",
-    why: "<strong>Key Architectural Decision:</strong> Messages are partitioned by <code>key=str(data['deviceId'])</code> so all events for a vehicle land in strict chronological order on the same Kafka partition.",
-    code: `# jobs/main.py — Partitioning by deviceId for strict ordering
-def produce_data_to_kafka(producer, topic, data):
-    producer.produce(
-        topic,
-        key=str(data['deviceId']),
-        value=json.dumps(data, default=json_serializer).encode('utf-8'),
-        on_delivery=delivery_report
-    )
-    producer.flush()`
+    title: "Stage 01: Azure Data Factory Master & Gatekeeper Pipelines",
+    desc: "The parent pipeline (pl_process_formula1_data) chains ingestion before transformation. Inside pl_ingest_formula1_data, a Get Metadata activity verifies that the race weekend's cutover folder (e.g. 2021-03-28) exists in ADLS Gen2 before an If Condition launches the Databricks job cluster.",
+    why: "<strong>Why it matters:</strong> Prevents expensive Databricks cluster spin-up when a scheduled trigger fires on a non-race weekend.",
+    code: `# Parameterized Databricks Notebook Widgets (passed by ADF)
+dbutils.widgets.text("parameter_data_source", "Ergast API")
+variable_data_source = dbutils.widgets.get("parameter_data_source")
+
+dbutils.widgets.text("parameter_file_date", "2021-03-28")
+variable_file_date = dbutils.widgets.get("parameter_file_date")`
   },
   {
-    title: "Stage 02: Containerized Confluent Kafka 7.4 & ZooKeeper",
-    desc: "Runs confluentinc/cp-server:7.4.0 and cp-zookeeper:7.4.0 on the datamasterylab Docker network with 10s netcat healthchecks and dual internal/external listeners (29092 / 9092).",
-    why: "<strong>Key Architectural Decision:</strong> Running Kafka locally in Docker Compose avoids idle managed-broker charges while maintaining 100% Kafka protocol parity.",
-    code: `# docker-compose.yml — Dual Listener Configuration
-KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29092,PLAINTEXT_HOST://localhost:9092
-KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1`
+    title: "Stage 02: ADLS Gen2 Bronze Cutover Layer & Key Vault Auth",
+    desc: "Stores raw immutable race dumps organized by cutover date (2021-03-21 full history, 2021-03-28 Bahrain GP, 2021-04-18 Imola GP) across 8 heterogeneous file formats.",
+    why: "<strong>Why it matters:</strong> Authenticates via Azure Key Vault secret scopes and Service Principal OAuth tokens (supporting Unity Catalog External Locations).",
+    code: `# set-up/2.mount_adls_using_service_principal.py
+client_id = dbutils.secrets.get(scope="formula1-scope", key="formula1-app-client-id")
+tenant_id = dbutils.secrets.get(scope="formula1-scope", key="formula1-app-tenant-id")
+client_secret = dbutils.secrets.get(scope="formula1-scope", key="formula1-app-client-secret")`
   },
   {
-    title: "Stage 03: Apache Spark 3.5 Structured Streaming Cluster",
-    desc: "1 Spark Master + 2 Worker nodes (2 cores, 1 GB RAM each) consuming all 5 Kafka topics with a 2-minute event-time watermark and a 60-second processing trigger.",
-    why: "<strong>Key Architectural Decision:</strong> Forks into 5 raw Bronze S3 streams plus a 6th watermarked stream-stream joined Silver corridor dataset.",
-    code: `def read_kafka_topic(topic, schema):
-    return (spark.readStream.format('kafka')
-            .option('kafka.bootstrap.servers', 'broker:29092')
-            .option('subscribe', topic)
-            .load()
-            .select(from_json(col('value').cast('string'), schema).alias('data'))
-            .select('data.*')
-            .withWatermark('timestamp', '2 minutes'))`
+    title: "Stage 03: PySpark Explicit Schema Enforcement (Silver Ingestion)",
+    desc: "Eight dedicated PySpark notebooks enforce strict StructType schemas on read (avoiding two-job inferSchema overhead), flatten nested STRUCTs (drivers.json), and append audit columns (ingestion_date, file_date).",
+    why: "<strong>Why it matters:</strong> Fails fast on upstream schema drift and standardizes camelCase JSON fields into snake_case Delta columns.",
+    code: `drivers_with_columns_df = (
+    drivers_df
+    .withColumnRenamed("driverId", "driver_id")
+    .withColumnRenamed("driverRef", "driver_ref")
+    .withColumn("name", concat(col("name.forename"), lit(" "), col("name.surname")))
+    .withColumn("ingestion_date", current_timestamp())
+    .withColumn("file_date", lit(variable_file_date))
+)`
   },
   {
-    title: "Stage 04: Amazon S3 Parquet Lake & Fault-Tolerant Checkpoints",
-    desc: "Writes columnar Snappy-compressed Parquet files via Hadoop S3AFileSystem (hadoop-aws:3.3.1) with isolated write-ahead offset checkpoints per stream.",
-    why: "<strong>Key Architectural Decision:</strong> Configuring .trigger(processingTime='60 seconds') prevents the S3 small-file problem (reducing object count by 20x) and cuts Athena scan overhead.",
-    code: `def streamWriter(input_df, checkpointFolder, output):
-    return (input_df.writeStream
-            .format('parquet')
-            .option('checkpointLocation', checkpointFolder)
-            .option('path', output)
-            .outputMode('append')
-            .trigger(processingTime='60 seconds')
-            .start())`
+    title: "Stage 04: Delta Lake ACID MERGE INTO with Dynamic Partition Pruning",
+    desc: "High-volume transactional tables (results, pit_stops, lap_times, qualifying) upsert race-weekend deltas via DeltaTable.forPath().merge() partitioned by race_id.",
+    why: "<strong>Why it matters:</strong> Guarantees 100% idempotency on pipeline retries and updates amended FIA post-race steward classifications in place.",
+    code: `def merge_delta_data(input_df, db_name, table_name, folder_path, merge_condition, partition_column):
+    spark.conf.set("spark.databricks.optimizer.dynamicPartitionPruning.enabled", "true")
+    deltaTable = DeltaTable.forPath(spark, f"{folder_path}/{table_name}")
+    (deltaTable.alias("targets")
+        .merge(input_df.alias("source"), merge_condition)
+        .whenMatchedUpdateAll()
+        .whenNotMatchedInsertAll()
+        .execute())`
   },
   {
-    title: "Stage 05: AWS Glue Crawlers & Unified Data Catalog",
-    desc: "Glue Crawlers inspect s3://spark-streaming-data-2025/data/* to infer table schemas and register metadata versions in the AWS Glue Data Catalog.",
-    why: "<strong>Key Architectural Decision:</strong> Enforcing explicit latitude and longitude DoubleType columns ensures Glue catalogs clean numeric coordinates ready for geospatial queries.",
-    code: `-- AWS Glue Catalog Table Schema (silver_corridor_telemetry)
-device_id          STRING,
-event_timestamp    TIMESTAMP,
-latitude           DOUBLE,
-longitude          DOUBLE,
-speed_mph          DOUBLE,
-weather_condition  STRING,
-air_quality_index  DOUBLE,
-incident_type      STRING,
-incident_status    STRING`
+    title: "Stage 05: Selective Season Reprocessing & Window Standings (Gold)",
+    desc: "Identifies only the race_year values present in the new cutover batch and recomputes driver_standings and constructor_standings using PySpark Window.partitionBy('race_year').orderBy(desc('total_points'), desc('wins')).",
+    why: "<strong>Why it matters:</strong> Avoids recomputing 1950–2020 standings when a single 2021 Grand Prix file arrives.",
+    code: `race_year_list = df_column_to_list(race_results_list, "race_year")
+race_results_df = spark.read.format("delta").load(f"{gold_folder_path}/race_results") \\
+    .filter(col("race_year").isin(race_year_list))
+
+driver_rank_spec = Window.partitionBy("race_year").orderBy(desc("total_points"), desc("wins"))
+final_df = driver_standings_df.withColumn("rank", rank().over(driver_rank_spec))`
   },
   {
-    title: "Stage 06: Amazon Athena, Redshift Star Schema & QuickSight",
-    desc: "Athena provides zero-ops serverless SQL directly over S3 Parquet; Redshift hosts the relational star schema powering live Amazon QuickSight operational dashboards.",
-    why: "<strong>Key Architectural Decision:</strong> Separates exploratory ad-hoc SQL (Athena) from high-concurrency control-room BI (Redshift + QuickSight).",
-    code: `-- Amazon Athena / Redshift Analytical Query
-SELECT weather_condition,
-       incident_type,
-       ROUND(AVG(speed_mph), 2) AS avg_corridor_speed_mph,
-       ROUND(AVG(air_quality_index), 1) AS mean_aqi
-FROM smart_city_catalog.silver_corridor_telemetry
-GROUP BY weather_condition, incident_type
-ORDER BY avg_corridor_speed_mph ASC;`
+    title: "Stage 06: Era-Normalized Dominance Mart & Power BI Dashboards",
+    desc: "f1_gold.calculated_race_results assigns 11 - position to all top-10 finishers, powering Databricks SQL and Power BI time-series dominance reports.",
+    why: "<strong>Why it matters:</strong> Separates single-season FIA championship rules from multi-decade historical performance benchmarking.",
+    code: `SELECT races.race_year,
+       constructors.name AS team_name,
+       drivers.name AS driver_name,
+       results.position,
+       results.points AS raw_fia_points,
+       11 - results.position AS calculated_points
+FROM f1_silver.results
+WHERE results.position <= 10`
   }
 ];
 
-function selectArch(i) {
-  document.querySelectorAll('.arch-node').forEach((n, idx) => n.classList.toggle('selected', idx === i));
-  document.getElementById('arch-detail-title').textContent = archData[i].title;
-  document.getElementById('arch-detail-desc').textContent = archData[i].desc;
-  document.getElementById('arch-detail-why').innerHTML = archData[i].why;
-  document.getElementById('arch-detail-code').textContent = archData[i].code;
+function selectF1Arch(i) {
+  document.querySelectorAll('#slide-1 .arch-node').forEach((n, idx) => n.classList.toggle('selected', idx === i));
+  document.getElementById('f1-arch-title').textContent = f1ArchData[i].title;
+  document.getElementById('f1-arch-desc').textContent = f1ArchData[i].desc;
+  document.getElementById('f1-arch-why').innerHTML = f1ArchData[i].why;
+  document.getElementById('f1-arch-code').textContent = f1ArchData[i].code;
 }
 
-let stepCount = 30;
-function simStep(mode) {
-  stepCount = stepCount >= 98 ? 10 : stepCount + 4;
-  const lat = (51.5074 + (52.4862 - 51.5074) * (stepCount / 100)).toFixed(4);
-  const lon = (-0.1278 + (-1.8904 - (-0.1278)) * (stepCount / 100)).toFixed(4);
-  let speed = 28.4, temp = 16.5, cond = "Sunny", aqi = 42.1, incType = "None", incStatus = "Resolved";
-  if (mode === 'weather') {
-    speed = 17.2; temp = 3.8; cond = "Rain"; aqi = 184.5; incType = "Police"; incStatus = "Active";
-  } else if (mode === 'emergency') {
-    speed = 11.4; temp = 19.1; cond = "Cloudy"; aqi = 312.0; incType = "Fire"; incStatus = "Active";
+let currentMode = 'norm';
+let currentEntity = 'drivers';
+
+const simData = {
+  drivers: {
+    norm: {
+      heading: "All-Time Dominant Drivers — Gold Normalized (`AVG(11 - position)`, Min 50 Races)",
+      explain: "Every P1 victory equals 10.0 points across all decades. 1980s/1990s icons Ayrton Senna and Alain Prost rank alongside Lewis Hamilton and Michael Schumacher.",
+      rows: [
+        { name: "Lewis Hamilton (2007–2021)", val: "8.78 avg pts / top-10", pct: 95, color: "#0055A4" },
+        { name: "Michael Schumacher (1991–2012)", val: "8.45 avg pts / top-10", pct: 91, color: "#001E50" },
+        { name: "Ayrton Senna (1984–1994)", val: "8.23 avg pts / top-10", pct: 88, color: "#0D9488" },
+        { name: "Alain Prost (1980–1993)", val: "8.15 avg pts / top-10", pct: 87, color: "#1D63B8" },
+        { name: "Sebastian Vettel (2007–2021)", val: "7.92 avg pts / top-10", pct: 84, color: "#B8860B" }
+      ],
+      sql: `-- Formula1/analysis/1.find_dominant_driver.sql (Normalized Gold Layer)
+SELECT driver_name,
+       COUNT(1) AS number_of_races,
+       SUM(calculated_points) AS total_points,
+       ROUND(AVG(calculated_points), 2) AS average_points
+FROM f1_gold.calculated_race_results
+GROUP BY driver_name
+HAVING COUNT(1) >= 50
+ORDER BY average_points DESC;`
+    },
+    raw: {
+      heading: "Raw FIA Career Points (`SUM(points)`) — Skewed by 2010+ 25-Point Inflation",
+      explain: "NOTE: Because 2010+ wins award 25 points across 22-race calendars (vs. 8–9 points in the 1950s–1980s), 3-time champion Ayrton Senna (614 raw pts) drops behind modern midfield finishers!",
+      rows: [
+        { name: "Lewis Hamilton (25-pt era)", val: "3,778 raw FIA pts", pct: 100, color: "#001E50" },
+        { name: "Sebastian Vettel (25-pt era)", val: "3,018 raw FIA pts", pct: 80, color: "#0055A4" },
+        { name: "Fernando Alonso (10/25-pt era)", val: "1,899 raw FIA pts", pct: 52, color: "#1D63B8" },
+        { name: "Valtteri Bottas (0 Championships, 25-pt era)", val: "1,512 raw FIA pts", pct: 42, color: "#5E7394" },
+        { name: "Ayrton Senna (3x World Champion, 9-pt era)", val: "614 raw FIA pts (Distorted!)", pct: 18, color: "#B8860B" }
+      ],
+      sql: `-- Naive Un-Normalized Query (Why raw SUM(points) fails across eras)
+SELECT driver_name,
+       SUM(points) AS raw_fia_total_points
+FROM f1_gold.race_results
+GROUP BY driver_name
+ORDER BY raw_fia_total_points DESC;
+-- Bottas (1,512 pts) ranks 2.4x higher than 3x Champion Ayrton Senna (614 pts)!`
+    }
+  },
+  teams: {
+    norm: {
+      heading: "All-Time Dominant Constructors — Gold Normalized (`AVG(11 - position)`, Min 100 Entries)",
+      explain: "Normalized top-10 efficiency across eras places Mercedes, Ferrari, Red Bull, McLaren, and Williams in true competitive proportion.",
+      rows: [
+        { name: "Mercedes", val: "8.34 avg norm pts", pct: 92, color: "#0D9488" },
+        { name: "Ferrari", val: "7.56 avg norm pts", pct: 84, color: "#0055A4" },
+        { name: "Red Bull Racing", val: "7.41 avg norm pts", pct: 82, color: "#001E50" },
+        { name: "McLaren", val: "7.08 avg norm pts", pct: 78, color: "#B8860B" },
+        { name: "Williams", val: "6.89 avg norm pts", pct: 75, color: "#1D63B8" }
+      ],
+      sql: `-- Formula1/analysis/2.find_dominant_team.sql
+SELECT team_name,
+       COUNT(1) AS total_races,
+       SUM(calculated_points) AS total_points,
+       ROUND(AVG(calculated_points), 2) AS avg_points
+FROM f1_gold.calculated_race_results
+GROUP BY team_name
+HAVING COUNT(1) >= 100
+ORDER BY avg_points DESC;`
+    },
+    raw: {
+      heading: "Raw FIA Constructor Points — Inflated by Post-2010 Two-Car 44-Point Weekends",
+      explain: "Modern constructors can score up to 44 points in a single Sunday (25 + 18 + 1 fastest lap), compared to just 15 points maximum in the 1980s.",
+      rows: [
+        { name: "Ferrari (1950–2021)", val: "8,712 raw FIA pts", pct: 100, color: "#0055A4" },
+        { name: "Mercedes (mostly 25-pt era)", val: "5,685 raw FIA pts", pct: 66, color: "#0D9488" },
+        { name: "McLaren (1966–2021)", val: "5,554 raw FIA pts", pct: 64, color: "#B8860B" },
+        { name: "Red Bull (2005–2021)", val: "5,043 raw FIA pts", pct: 58, color: "#001E50" },
+        { name: "Williams (9x Champions, 9/10-pt era)", val: "3,561 raw FIA pts", pct: 41, color: "#5E7394" }
+      ],
+      sql: `-- Raw Un-Normalized Constructor Totals
+SELECT team, SUM(points) AS raw_total_points
+FROM f1_gold.race_results
+GROUP BY team
+ORDER BY raw_total_points DESC;`
+    }
   }
-  document.getElementById('sim-coord').textContent = `${lat}°N, ${lon}°W`;
-  document.getElementById('sim-step-lbl').textContent = `Route Progress: Step ${stepCount} / 100 (London → Birmingham)`;
-  document.getElementById('sim-speed').textContent = `${speed} mph`;
-  document.getElementById('sim-weather').textContent = `${cond} · ${temp}°C`;
-  document.getElementById('sim-aqi').textContent = `Air Quality Index: ${aqi}`;
-  document.getElementById('sim-inc').textContent = `${incType} (${incStatus})`;
-  document.getElementById('sim-inc-sub').textContent = `Key: Vehicle-123 · Watermark: Valid`;
+};
 
-  document.getElementById('sim-kafka-box').textContent =
-`[topic: vehicle_data | key: "Vehicle-123"]
-{"deviceId": "Vehicle-123", "latitude": ${lat}, "longitude": ${lon}, "speed": ${speed}}
-
-[topic: weather_data | key: "Vehicle-123"]
-{"deviceId": "Vehicle-123", "latitude": ${lat}, "longitude": ${lon}, "temperature": ${temp}, "weatherCondition": "${cond}", "airQualityIndex": ${aqi}}
-
-[topic: emergency_data | key: "Vehicle-123"]
-{"deviceId": "Vehicle-123", "type": "${incType}", "status": "${incStatus}"}`;
-
-  document.getElementById('sim-silver-box').textContent =
-`{
-  "device_id": "Vehicle-123",
-  "latitude": ${lat},
-  "longitude": ${lon},
-  "speed_mph": ${speed},
-  "temperature_c": ${temp},
-  "weather_condition": "${cond}",
-  "air_quality_index": ${aqi},
-  "incident_type": "${incType}",
-  "incident_status": "${incStatus}",
-  "watermark_window": "±1 min matched"
-}`;
+function renderBars() {
+  const d = simData[currentEntity][currentMode];
+  document.getElementById('chart-heading').textContent = d.heading;
+  document.getElementById('chart-explain').textContent = d.explain;
+  document.getElementById('sql-preview').textContent = d.sql;
+  const container = document.getElementById('bars-container');
+  container.innerHTML = d.rows.map(r => `
+    <div class="bar-row">
+      <div class="bar-label"><strong style="color:var(--fia-navy)">${r.name}</strong><span style="font-family:var(--font-mono);color:${r.color};font-weight:600">${r.val}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${r.pct}%;background:${r.color}"></div></div>
+    </div>
+  `).join('');
 }
+
+function setScoreMode(m) {
+  currentMode = m;
+  document.getElementById('btn-norm').classList.toggle('active-mode', m === 'norm');
+  document.getElementById('btn-raw').classList.toggle('active-mode', m === 'raw');
+  renderBars();
+}
+
+function toggleEntity() {
+  currentEntity = currentEntity === 'drivers' ? 'teams' : 'drivers';
+  document.getElementById('btn-entity').textContent = currentEntity === 'drivers' ? 'Switch to Constructors View 🏎️' : 'Switch to Drivers View 🪖';
+  renderBars();
+}
+
+renderBars();
 </script>
 </body>
 </html>
