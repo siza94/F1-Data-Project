@@ -29,6 +29,10 @@ variable_file_date = dbutils.widgets.get("parameter_file_date")
 
 # COMMAND ----------
 
+# MAGIC %run "../includes/common_functions"
+
+# COMMAND ----------
+
 results_schema = StructType(fields=[StructField("resultId", IntegerType(), False),
                                     StructField("raceId", IntegerType(), True),
                                     StructField("driverId", IntegerType(), True),
@@ -66,12 +70,12 @@ display(results_df)
 
 # COMMAND ----------
 
-from pyspark.sql.functions import current_timestamp, col
+from pyspark.sql.functions import current_timestamp, col, lit
 
 # COMMAND ----------
 
 results_with_columns_df = results_df.withColumnRenamed("resultId", "result_id")\
-                                    .withColumnRenamed("raceID", "race_id")\
+                                    .withColumnRenamed("raceId", "race_id")\
                                     .withColumnRenamed("driverId", "driver_id")\
                                     .withColumnRenamed("constructorId", "constructor_id")\
                                     .withColumnRenamed("positionText", "position_text")\
