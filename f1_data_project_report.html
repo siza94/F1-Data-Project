@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formula 1 Lakehouse (Azure Databricks) — Engineering Lifecycle Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,600;0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fia-navy: #001E50;
+  --fia-navy-deep: #001538;
+  --fia-blue: #0055A4;
+  --fia-blue-bright: #1D63B8;
+  --fia-blue-bg: #EFF5FC;
+  --fia-blue-line: #BBD4F0;
+  --ink: #0F1E36;
+  --ink-soft: #334766;
+  --ink-faint: #627594;
+  --paper: #F4F7FB;
+  --paper-raised: #FFFFFF;
+  --line: #D8E2EE;
+  --line-strong: #B4C5DC;
+  --fia-gold: #B8860B;
+  --fia-gold-bg: #FDF9EE;
+  --fia-gold-line: #EED799;
+  --fia-teal: #0D9488;
+  --fia-teal-bg: #ECFDF5;
+  --fia-teal-line: #A7F3D0;
+  --font-display: 'Titillium Web', -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink-soft); font-family: var(--font-body); line-height: 1.58; }
+h1, h2, h3, h4 { color: var(--fia-navy); font-family: var(--font-display); font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+a { color: var(--fia-blue); }
+code { font-family: var(--font-mono); font-size: 0.86em; background: #E6EEF8; padding: 1px 5px; border-radius: 3px; color: var(--fia-navy); }
+pre { font-family: var(--font-mono); font-size: 12.5px; background: var(--fia-navy-deep); color: #F0F5FA; padding: 16px 18px; overflow-x: auto; border-left: 4px solid var(--fia-blue-bright); margin: 14px 0; line-height: 1.5; border-radius: 0 4px 4px 0; }
+pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--fia-navy); border-bottom: 3px solid var(--fia-blue-bright); box-shadow: 0 2px 10px rgba(0, 30, 80, 0.12); }
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 56px; flex-wrap: wrap; }
+.topbar .brand { font-family: var(--font-display); font-weight: 900; color: #fff; font-size: 16.5px; letter-spacing: 0.04em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.topbar .brand .fia-badge { background: var(--fia-blue); color: #fff; font-style: italic; padding: 2px 9px; border-radius: 2px; font-size: 14px; letter-spacing: 0.06em; border: 1px solid rgba(255,255,255,0.22); }
+.topbar .nav-links { display: flex; gap: 12px; align-items: center; }
+.topbar .repo-link { font-family: var(--font-mono); font-size: 12px; color: #fff; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.28); padding: 5px 12px; text-decoration: none; border-radius: 3px; transition: background 0.15s; }
+.topbar .repo-link.primary { background: var(--fia-blue); border-color: #4B96E6; }
+.topbar .repo-link:hover { background: var(--fia-blue-bright); }
+.hero { padding: 56px 0 42px; border-bottom: 1px solid var(--line); background: linear-gradient(180deg, #E7EFF9 0%, var(--paper) 100%); }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; color: var(--fia-blue); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+.hero h1 { font-size: clamp(32px, 4.4vw, 45px); margin: 10px 0 14px; max-width: 840px; line-height: 1.13; color: var(--fia-navy); }
+.hero .sub { font-size: 17px; max-width: 720px; color: var(--ink-soft); }
+.hero-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.badge { border: 1px solid var(--line-strong); border-left: 3px solid var(--fia-blue); background: var(--paper-raised); padding: 5px 11px; font-size: 12px; font-family: var(--font-mono); color: var(--fia-navy); }
+.progress-row { margin-top: 22px; max-width: 540px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; font-family: var(--font-mono); color: var(--ink-faint); margin-bottom: 5px; }
+.progress-track { height: 7px; background: var(--line); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--fia-navy), var(--fia-blue-bright)); width: 100%; }
+#lifecycle { padding: 40px 0 0; }
+.section-head { display: flex; gap: 16px; align-items: baseline; margin-bottom: 8px; }
+.section-head h2 { font-size: 25px; text-transform: uppercase; letter-spacing: 0.01em; }
+.section-intro { max-width: 700px; color: var(--ink-soft); margin: 0 0 20px; font-size: 14.5px; }
+.tab-strip { display: flex; overflow-x: auto; border: 1px solid var(--line); background: var(--paper-raised); position: sticky; top: 59px; z-index: 9; box-shadow: 0 2px 8px rgba(0,30,80,0.06); }
+.tab-btn { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; padding: 13px 16px; border: none; border-right: 1px solid var(--line); background: none; font-family: var(--font-display); font-size: 13.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; color: var(--ink-soft); cursor: pointer; white-space: nowrap; transition: background 0.15s; }
+.tab-btn:last-child { border-right: none; }
+.tab-btn:hover { background: var(--fia-blue-bg); color: var(--fia-navy); }
+.tab-btn.active { background: var(--fia-navy); color: #fff; border-bottom: 3px solid var(--fia-gold); }
+.dot { width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto; background: var(--line-strong); }
+.dot.done { background: var(--fia-teal); }
+.tab-legend { display: flex; gap: 18px; font-size: 11.5px; color: var(--ink-faint); padding: 8px 2px 24px; font-family: var(--font-mono); }
+.tab-legend span { display: flex; align-items: center; gap: 6px; }
+.panels-wrap { padding-bottom: 40px; }
+.phase-panel { padding-top: 8px; }
+.panel-head { display: flex; gap: 14px; align-items: baseline; margin-bottom: 18px; }
+.panel-head .n { font-family: var(--font-mono); font-size: 13px; color: #fff; background: var(--fia-blue); padding: 2px 9px; font-weight: 600; border-radius: 2px; }
+.panel-head h2 { font-size: 28px; text-transform: uppercase; }
+.panel-intro { max-width: 740px; color: var(--ink-soft); margin: 0 0 26px; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 24px; }
+@media (max-width: 760px) { .cards, .stat-row, .chart-grid { grid-template-columns: 1fr !important; } }
+.card { background: var(--paper-raised); border: 1px solid var(--line); border-top: 3px solid var(--fia-blue); padding: 20px; }
+.card h3 { font-size: 18px; margin-bottom: 8px; }
+.card p { font-size: 14px; margin: 0 0 12px; }
+.tag { display: inline-block; font-size: 11px; font-family: var(--font-mono); padding: 3px 8px; margin: 2px 4px 0 0; border: 1px solid; border-radius: 2px; }
+.tag.clear { color: var(--fia-teal); border-color: var(--fia-teal-line); background: var(--fia-teal-bg); }
+.tag.blue { color: var(--fia-blue); border-color: var(--fia-blue-line); background: var(--fia-blue-bg); }
+.tag.gold { color: var(--fia-gold); border-color: var(--fia-gold-line); background: var(--fia-gold-bg); }
+.decision { border: 1px solid var(--fia-blue-line); border-left: 4px solid var(--fia-blue); background: var(--fia-blue-bg); padding: 24px 26px; margin-bottom: 20px; border-radius: 0 4px 4px 0; }
+.decision h3 { font-size: 19px; margin-bottom: 10px; color: var(--fia-navy); }
+.decision dl { margin: 14px 0 0; display: grid; grid-template-columns: 155px 1fr; gap: 8px 16px; font-size: 14px; }
+.decision dt { font-family: var(--font-mono); font-size: 11px; color: var(--fia-blue); align-self: start; padding-top: 2px; text-transform: uppercase; font-weight: 600; }
+.decision dd { margin: 0; color: var(--ink-soft); }
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
+.stat { background: var(--fia-navy); color: #fff; padding: 20px 22px; border-top: 4px solid var(--fia-gold); border-radius: 0 0 4px 4px; }
+.stat b { display: block; font-family: var(--font-display); font-size: clamp(26px, 3.2vw, 34px); font-weight: 900; color: #fff; }
+.stat span { font-size: 12.5px; color: #CBD6E6; }
+.stat sup a { color: #93C5FD; text-decoration: none; }
+.req-table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); background: var(--paper-raised); margin: 0 0 28px; }
+.req-table th { text-align: left; font-family: var(--font-mono); font-size: 11px; color: #fff; text-transform: uppercase; letter-spacing: .04em; padding: 11px 14px; border-bottom: 2px solid var(--fia-gold); background: var(--fia-navy); }
+.req-table td { padding: 12px 14px; font-size: 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.req-table tr:last-child td { border-bottom: none; }
+.req-table td.label { font-weight: 700; color: var(--fia-navy); width: 210px; font-family: var(--font-display); font-size: 15px; }
+.diagram-block { border: 1px solid var(--line); background: var(--paper-raised); padding: 20px; margin: 0 0 24px; }
+.diagram-block svg { width: 100%; height: auto; display: block; }
+.diagram-block .caption { font-size: 12.5px; color: var(--ink-faint); margin-top: 12px; }
+.role-tabs { display: flex; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.role-tabs button { flex: 1; font-family: var(--font-display); font-size: 14px; font-weight: 700; text-transform: uppercase; padding: 12px; border: none; background: var(--paper-raised); color: var(--ink-soft); cursor: pointer; }
+.role-tabs button.active { background: var(--fia-navy); color: #fff; border-bottom: 3px solid var(--fia-gold); }
+.role-panel { border: 1px solid var(--line); border-top: none; padding: 24px 26px; background: var(--paper-raised); }
+.role-panel p { font-size: 15px; margin: 0; }
+.role-panel .who { font-family: var(--font-mono); font-size: 11px; color: var(--fia-blue); display: block; margin-bottom: 8px; text-transform: uppercase; font-weight: 600; }
+.chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 30px; }
+.chart-grid .full { grid-column: 1 / -1; }
+.chart-block { border: 1px solid var(--line); background: var(--paper-raised); padding: 20px 22px; }
+.chart-block h4 { font-size: 16px; margin-bottom: 4px; text-transform: uppercase; color: var(--fia-navy); }
+.chart-block .chart-sub { font-size: 12px; color: var(--ink-faint); margin-bottom: 14px; }
+.chart-block svg { width: 100%; height: auto; display: block; }
+.chart-caption { font-size: 12px; color: var(--ink-faint); margin-top: 10px; }
+.legend-row { display: flex; gap: 16px; font-size: 11.5px; color: var(--ink-soft); margin-top: 10px; flex-wrap: wrap; }
+.legend-row span { display: flex; align-items: center; gap: 6px; }
+.legend-sw { width: 10px; height: 10px; display: inline-block; border-radius: 2px; }
+footer { padding: 40px 0 60px; border-top: 1px solid var(--line); margin-top: 20px; background: var(--paper-raised); }
+footer h4 { font-size: 13px; color: var(--fia-navy); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .03em; }
+footer ol { font-size: 12.5px; color: var(--ink-faint); margin: 0 0 24px; padding-left: 18px; }
+footer ol li { margin-bottom: 5px; }
+footer ol a { color: var(--fia-blue); }
+footer p.note { font-size: 13px; color: var(--ink-faint); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand"><span class="fia-badge">FIA F1</span> TELEMETRY &amp; CHAMPIONSHIP LAKEHOUSE · AZURE DATABRICKS</span>
+    <div class="nav-links">
+      <a class="repo-link" href="index.html">← Interactive Showcase Deck</a>
+      <a class="repo-link primary" href="https://github.com/siza94/F1-Data-Project" target="_blank" rel="noopener">View Source Code on GitHub ↗</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Engineering Lifecycle Report · Phases 1–8 · Medallion Lakehouse Architecture</div>
+    <h1>Project Report: Building the Formula 1 Medallion Lakehouse on Azure Databricks</h1>
+    <p class="sub">An end-to-end engineering record of how 70+ years of heterogeneous Formula 1 race history and telemetry were ingested, normalized across incompatible FIA scoring eras, and orchestrated with Delta Lake ACID merges and Azure Data Factory.</p>
+    <div class="hero-meta">
+      <span class="badge">Azure Databricks · PySpark &amp; Spark SQL</span>
+      <span class="badge">Delta Lake (Bronze → Silver → Gold)</span>
+      <span class="badge">Azure Data Factory · ADLS Gen2 · Key Vault · Power BI</span>
+      <span class="badge">Sithsaba Zantsi · Data Engineer</span>
+    </div>
+    <div class="progress-row">
+      <div class="progress-label"><span>Project lifecycle</span><span>All 8 Engineering Phases Complete</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+    </div>
+  </div>
+</header>
+
+<div id="lifecycle">
+  <div class="wrap">
+    <div class="section-head"><h2>Click through the 8-phase engineering lifecycle</h2></div>
+    <p class="section-intro">Select any phase below to inspect the domain problem, incremental ingestion architecture, Medallion schema enforcement, edge-case handling, and cloud orchestration design.</p>
+    <div class="tab-strip" id="tab-strip">
+      <button class="tab-btn active" onclick="showPhase(this,1)"><span class="dot done"></span>01 Idea &amp; Research</button>
+      <button class="tab-btn" onclick="showPhase(this,2)"><span class="dot done"></span>02 Planning &amp; Architecture</button>
+      <button class="tab-btn" onclick="showPhase(this,3)"><span class="dot done"></span>03 Requirements Analysis</button>
+      <button class="tab-btn" onclick="showPhase(this,4)"><span class="dot done"></span>04 Schema &amp; Data Design</button>
+      <button class="tab-btn" onclick="showPhase(this,5)"><span class="dot done"></span>05 PySpark Development</button>
+      <button class="tab-btn" onclick="showPhase(this,6)"><span class="dot done"></span>06 Quality &amp; Testing</button>
+      <button class="tab-btn" onclick="showPhase(this,7)"><span class="dot done"></span>07 ADF Deployment</button>
+      <button class="tab-btn" onclick="showPhase(this,8)"><span class="dot done"></span>08 Operations &amp; Evolution</button>
+    </div>
+    <div class="tab-legend">
+      <span><span class="dot done"></span>Implemented &amp; Verified in Repository (<a href="https://github.com/siza94/F1-Data-Project" target="_blank" rel="noopener">siza94/F1-Data-Project</a>)</span>
+    </div>
+  </div>
+</div>
+
+<div class="panels-wrap">
+  <div class="wrap">
+
+    <!-- PHASE 1 -->
+    <div class="phase-panel" id="panel-1">
+      <div class="panel-head"><span class="n">01</span><h2>Idea &amp; Research</h2></div>
+      <p class="panel-intro">Two domain challenges motivated this lakehouse: first, raw Formula 1 points cannot be summed across decades because the FIA inflated win values by 312.5% between 1950 and 2010; second, the upstream dataset arrives in 8 incompatible file structures that require idempotent weekly cutover loading after every Grand Prix.</p>
+
+      <div class="stat-row">
+        <div class="stat"><b>312.5% <sup><a href="#src1">[1]</a></sup></b><span>Points inflation for a P1 race win from 1950 (8 pts) to 2010–present (25 pts), distorting raw career totals</span></div>
+        <div class="stat"><b>8 Schemas <sup><a href="#src2">[2]</a></sup></b><span>Across CSVs, single-line JSON, nested STRUCT JSON, multi-line JSON, and split multi-file directories</span></div>
+        <div class="stat"><b>~500k+ <sup><a href="#src2">[2]</a></sup></b><span>Granular lap-time records across 70+ seasons joined to evaluate driver &amp; constructor dominance</span></div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-block full">
+          <h4>Why raw career points lie: FIA points-system inflation vs. our normalized Gold-layer scale</h4>
+          <div class="chart-sub">Points awarded for 1st place (P1) and number of scoring classifications by FIA Regulation Era <sup><a href="#src1">[1]</a></sup></div>
+          <svg viewBox="0 0 640 230" role="img" aria-label="Bar chart comparing FIA points for a race win across eras against the normalized 10-point scale">
+            <line x1="40" y1="185" x2="615" y2="185" stroke="#D8E2EE" stroke-width="1.5"/>
+            <rect x="60" y="137" width="42" height="48" fill="#001E50"/>
+            <text x="81" y="130" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="JetBrains Mono">8 pts</text>
+            <rect x="106" y="125" width="42" height="60" fill="#0055A4"/>
+            <text x="127" y="118" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0055A4" font-family="JetBrains Mono">10 norm</text>
+            <text x="104" y="203" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="Titillium Web">1950–1959</text>
+            <text x="104" y="218" text-anchor="middle" font-size="9.5" fill="#627594" font-family="Plus Jakarta Sans">Top 5 scored (+1 FL)</text>
+
+            <rect x="200" y="131" width="42" height="54" fill="#001E50"/>
+            <text x="221" y="124" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="JetBrains Mono">9 pts</text>
+            <rect x="246" y="125" width="42" height="60" fill="#0055A4"/>
+            <text x="267" y="118" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0055A4" font-family="JetBrains Mono">10 norm</text>
+            <text x="244" y="203" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="Titillium Web">1960–1990</text>
+            <text x="244" y="218" text-anchor="middle" font-size="9.5" fill="#627594" font-family="Plus Jakarta Sans">Top 6 scored (~16 races/yr)</text>
+
+            <rect x="340" y="125" width="42" height="60" fill="#001E50"/>
+            <text x="361" y="118" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="JetBrains Mono">10 pts</text>
+            <rect x="386" y="125" width="42" height="60" fill="#0055A4"/>
+            <text x="407" y="118" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0055A4" font-family="JetBrains Mono">10 norm</text>
+            <text x="384" y="203" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="Titillium Web">1991–2009</text>
+            <text x="384" y="218" text-anchor="middle" font-size="9.5" fill="#627594" font-family="Plus Jakarta Sans">Top 6 / Top 8 scored</text>
+
+            <rect x="480" y="35" width="42" height="150" fill="#B8860B"/>
+            <text x="501" y="27" text-anchor="middle" font-size="11.5" font-weight="700" fill="#B8860B" font-family="JetBrains Mono">25 pts</text>
+            <rect x="526" y="125" width="42" height="60" fill="#0055A4"/>
+            <text x="547" y="118" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0055A4" font-family="JetBrains Mono">10 norm</text>
+            <text x="524" y="203" text-anchor="middle" font-size="11.5" font-weight="700" fill="#001E50" font-family="Titillium Web">2010–Present</text>
+            <text x="524" y="218" text-anchor="middle" font-size="9.5" fill="#627594" font-family="Plus Jakarta Sans">Top 10 scored (22+ races/yr)</text>
+          </svg>
+          <div class="legend-row">
+            <span><span class="legend-sw" style="background:#001E50"></span>Historical FIA P1 Points (1950–2009)</span>
+            <span><span class="legend-sw" style="background:#B8860B"></span>Modern FIA P1 Points (2010+ Inflation)</span>
+            <span><span class="legend-sw" style="background:#0055A4"></span>Gold Layer <code>calculated_points = 11 - position</code> (FIA Championship Blue)</span>
+          </div>
+          <p class="chart-caption">Without normalization, a modern midfield P4 finish (12 pts) outweighs Ayrton Senna or Alain Prost winning a Grand Prix outright (9 pts).</p>
+        </div>
+
+        <div class="chart-block">
+          <h4>Dominant Drivers of All Time (Normalized)</h4>
+          <div class="chart-sub">Mean <code>calculated_points</code> per top-10 finish (<code>COUNT &gt;= 50</code>) <sup><a href="#src3">[3]</a></sup></div>
+          <svg viewBox="0 0 320 190" role="img" aria-label="Horizontal bar chart of dominant drivers by average normalized points">
+            <text x="0" y="24" font-size="11" font-weight="700" fill="#001E50" font-family="Plus Jakarta Sans">Lewis Hamilton</text>
+            <rect x="115" y="13" width="160" height="14" fill="#0055A4"/><text x="280" y="24" font-size="10" font-weight="700" fill="#0055A4" font-family="JetBrains Mono">8.78 avg</text>
+            <text x="0" y="56" font-size="11" font-weight="700" fill="#001E50" font-family="Plus Jakarta Sans">Michael Schumacher</text>
+            <rect x="115" y="45" width="154" height="14" fill="#001E50"/><text x="274" y="56" font-size="10" font-weight="600" fill="#001E50" font-family="JetBrains Mono">8.45 avg</text>
+            <text x="0" y="88" font-size="11" fill="#334766" font-family="Plus Jakarta Sans">Ayrton Senna</text>
+            <rect x="115" y="77" width="150" height="14" fill="#0D9488"/><text x="270" y="88" font-size="10" fill="#001E50" font-family="JetBrains Mono">8.23 avg</text>
+            <text x="0" y="120" font-size="11" fill="#334766" font-family="Plus Jakarta Sans">Alain Prost</text>
+            <rect x="115" y="109" width="148" height="14" fill="#1D63B8"/><text x="268" y="120" font-size="10" fill="#001E50" font-family="JetBrains Mono">8.15 avg</text>
+            <text x="0" y="152" font-size="11" fill="#334766" font-family="Plus Jakarta Sans">Sebastian Vettel</text>
+            <rect x="115" y="141" width="144" height="14" fill="#B8860B"/><text x="264" y="152" font-size="10" fill="#001E50" font-family="JetBrains Mono">7.92 avg</text>
+          </svg>
+          <p class="chart-caption">Output from <code>Formula1/analysis/1.find_dominant_driver.sql</code> &amp; Power BI report (<code>PoweBI_dominant_drivers.png</code>).</p>
+        </div>
+
+        <div class="chart-block">
+          <h4>Dominant Constructors Across Eras</h4>
+          <div class="chart-sub">Mean <code>calculated_points</code> (<code>HAVING COUNT &gt;= 100</code> entries) <sup><a href="#src3">[3]</a></sup></div>
+          <svg viewBox="0 0 320 190" role="img" aria-label="Horizontal bar chart of dominant constructors by average normalized points">
+            <text x="0" y="24" font-size="11" font-weight="700" fill="#001E50" font-family="Plus Jakarta Sans">Mercedes</text>
+            <rect x="105" y="13" width="168" height="14" fill="#0D9488"/><text x="278" y="24" font-size="10" font-weight="700" fill="#0D9488" font-family="JetBrains Mono">8.34 avg</text>
+            <text x="0" y="56" font-size="11" font-weight="700" fill="#001E50" font-family="Plus Jakarta Sans">Ferrari</text>
+            <rect x="105" y="45" width="152" height="14" fill="#0055A4"/><text x="262" y="56" font-size="10" font-weight="600" fill="#0055A4" font-family="JetBrains Mono">7.56 avg</text>
+            <text x="0" y="88" font-size="11" fill="#334766" font-family="Plus Jakarta Sans">Red Bull</text>
+            <rect x="105" y="77" width="149" height="14" fill="#001E50"/><text x="259" y="88" font-size="10" fill="#001E50" font-family="JetBrains Mono">7.41 avg</text>
+            <text x="0" y="120" font-size="11" fill="#334766" font-family="Plus Jakarta Sans">McLaren</text>
+            <rect x="105" y="109" width="142" height="14" fill="#B8860B"/><text x="252" y="120" font-size="10" fill="#001E50" font-family="JetBrains Mono">7.08 avg</text>
+            <text x="0" y="152" font-size="11" fill="#334766" font-family="Plus Jakarta Sans">Williams</text>
+            <rect x="105" y="141" width="138" height="14" fill="#1D63B8"/><text x="248" y="152" font-size="10" fill="#001E50" font-family="JetBrains Mono">6.89 avg</text>
+          </svg>
+          <p class="chart-caption">Output from <code>Formula1/analysis/2.find_dominant_team.sql</code> &amp; Power BI report (<code>PoweBI_dominant_teams.png</code>).</p>
+        </div>
+      </div>
+
+      <div class="decision">
+        <h3>Standardise cross-era dominance with <code>11 - position</code> and sample-size floors</h3>
+        <dl>
+          <dt>Decision</dt><dd>In the Gold table <code>f1_gold.calculated_race_results</code>, compute <code>11 - results.position AS calculated_points</code> for all top-10 finishers (P1 = 10, P10 = 1) while preserving official FIA <code>points</code> in <code>f1_gold.race_results</code> for single-season championship classifications.</dd>
+          <dt>Alternative</dt><dd>Rank all-time drivers and constructors directly from <code>SUM(results.points)</code> or <code>AVG(results.points)</code>.</dd>
+          <dt>Why not that</dt><dd>Both raw metrics are skewed across eras: <code>SUM(points)</code> rewards post-2010 drivers who race 22–24 times a season for 25 points a win, while raw <code>AVG(points)</code> without a sample-size floor puts one-off 1950s Indy 500 entrants above 7-time World Champions.</dd>
+          <dt>Trade-off accepted</dt><dd>Filtering <code>WHERE position &lt;= 10</code> and <code>HAVING COUNT(1) &gt;= 50</code> excludes mechanical retirements and short-career prodigies unless the race threshold parameter is lowered for decade-specific views.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-panel" id="panel-2" style="display:none">
+      <div class="panel-head"><span class="n">02</span><h2>Planning &amp; Architecture</h2></div>
+      <p class="panel-intro">The architecture implements a three-tier Medallion Lakehouse (<code>bronze</code>, <code>silver</code>, <code>gold</code>) on Azure Data Lake Storage Gen2 and Azure Databricks, orchestrated by a metadata-driven Azure Data Factory (ADF) parent pipeline.</p>
+
+      <div class="diagram-block">
+        <svg viewBox="0 0 920 330" role="img" aria-label="Formula 1 Azure Databricks Medallion Lakehouse Architecture">
+          <rect x="185" y="12" width="540" height="46" rx="4" fill="#001E50"/>
+          <text x="455" y="32" text-anchor="middle" font-size="12" font-family="JetBrains Mono" fill="#93C5FD" font-weight="600">AZURE DATA FACTORY MASTER ORCHESTRATOR (pl_process_formula1_data)</text>
+          <text x="455" y="48" text-anchor="middle" font-size="10.5" font-family="Plus Jakarta Sans" fill="#E2E8F0">Get Metadata (Folder Exists) → If Condition → Execute Ingest Pipeline → Execute Transform Pipeline</text>
+
+          <rect x="12" y="80" width="150" height="230" rx="5" fill="#F4F7FB" stroke="#B4C5DC"/>
+          <text x="87" y="104" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#001E50" font-weight="600">CUTOVER BATCHES</text>
+          <rect x="24" y="118" width="126" height="44" rx="3" fill="#fff" stroke="#D8E2EE"/>
+          <text x="87" y="137" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#001E50" font-weight="600">2021-03-21/</text>
+          <text x="87" y="152" text-anchor="middle" font-size="9.5" font-family="Plus Jakarta Sans" fill="#627594">Full History (1950–2020)</text>
+          <rect x="24" y="172" width="126" height="44" rx="3" fill="#fff" stroke="#D8E2EE"/>
+          <text x="87" y="191" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#0055A4" font-weight="600">2021-03-28/</text>
+          <text x="87" y="206" text-anchor="middle" font-size="9.5" font-family="Plus Jakarta Sans" fill="#627594">Bahrain GP Delta</text>
+          <rect x="24" y="226" width="126" height="44" rx="3" fill="#fff" stroke="#D8E2EE"/>
+          <text x="87" y="245" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#0055A4" font-weight="600">2021-04-18/</text>
+          <text x="87" y="260" text-anchor="middle" font-size="9.5" font-family="Plus Jakarta Sans" fill="#627594">Imola GP Delta</text>
+          <text x="87" y="292" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#334766">CSV · JSON · Split</text>
+
+          <rect x="185" y="80" width="165" height="230" rx="5" fill="#FDF9EE" stroke="#B8860B" stroke-width="1.5"/>
+          <text x="267" y="104" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#B8860B" font-weight="600">BRONZE (ADLS RAW)</text>
+          <rect x="200" y="120" width="135" height="125" rx="3" fill="#fff" stroke="#EED799"/>
+          <text x="267" y="142" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#001E50">f1_bronze.*</text>
+          <text x="267" y="162" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">circuits · races</text>
+          <text x="267" y="180" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">constructors · drivers</text>
+          <text x="267" y="198" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">results · pit_stops</text>
+          <text x="267" y="216" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">lap_times/ · qualifying/</text>
+          <text x="267" y="275" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#B8860B">Key Vault + Entra SP</text>
+
+          <rect x="372" y="80" width="175" height="230" rx="5" fill="#EFF5FC" stroke="#0055A4" stroke-width="1.5"/>
+          <text x="459" y="104" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#0055A4" font-weight="600">SILVER (CLEAN DELTA)</text>
+          <rect x="387" y="120" width="145" height="145" rx="3" fill="#fff" stroke="#BBD4F0"/>
+          <text x="459" y="142" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#001E50" font-weight="600">f1_silver.* (Delta)</text>
+          <text x="459" y="162" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">Explicit StructType</text>
+          <text x="459" y="180" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">snake_case columns</text>
+          <text x="459" y="198" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">+ ingestion_date</text>
+          <text x="459" y="216" text-anchor="middle" font-size="10" font-family="Plus Jakarta Sans" fill="#334766">+ file_date lineage</text>
+          <text x="459" y="236" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0D9488">MERGE INTO (race_id)</text>
+          <text x="459" y="285" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0055A4">Deduped (driver, race)</text>
+
+          <rect x="569" y="80" width="175" height="230" rx="5" fill="#ECFDF5" stroke="#0D9488" stroke-width="1.5"/>
+          <text x="656" y="104" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#0D9488" font-weight="600">GOLD (PRESENTATION)</text>
+          <rect x="584" y="120" width="145" height="145" rx="3" fill="#fff" stroke="#A7F3D0"/>
+          <text x="656" y="142" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#001E50" font-weight="600">f1_gold.* (Delta)</text>
+          <text x="656" y="164" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#334766">race_results</text>
+          <text x="656" y="184" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#334766">driver_standings</text>
+          <text x="656" y="204" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#334766">constructor_standings</text>
+          <text x="656" y="224" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0055A4">calculated_race_results</text>
+          <text x="656" y="285" text-anchor="middle" font-size="10" font-family="JetBrains Mono" fill="#0D9488">Window rank() specs</text>
+
+          <rect x="765" y="80" width="142" height="230" rx="5" fill="#F4F7FB" stroke="#B4C5DC"/>
+          <text x="836" y="104" text-anchor="middle" font-size="11" font-family="JetBrains Mono" fill="#001E50" font-weight="600">SERVING &amp; BI</text>
+          <rect x="778" y="125" width="116" height="70" rx="3" fill="#001E50"/>
+          <text x="836" y="155" text-anchor="middle" font-size="12" font-family="Titillium Web" fill="#fff" font-weight="700">Power BI</text>
+          <text x="836" y="173" text-anchor="middle" font-size="9.5" font-family="JetBrains Mono" fill="#93C5FD">Dominance Dashboards</text>
+          <rect x="778" y="210" width="116" height="70" rx="3" fill="#fff" stroke="#D8E2EE"/>
+          <text x="836" y="240" text-anchor="middle" font-size="11.5" font-family="Titillium Web" fill="#001E50" font-weight="700">Databricks SQL</text>
+          <text x="836" y="258" text-anchor="middle" font-size="9.5" font-family="Plus Jakarta Sans" fill="#334766">Era Analysis Queries</text>
+
+          <line x1="162" y1="195" x2="185" y2="195" stroke="#001E50" stroke-width="1.8"/>
+          <line x1="350" y1="195" x2="372" y2="195" stroke="#B8860B" stroke-width="1.8"/>
+          <line x1="547" y1="195" x2="569" y2="195" stroke="#0055A4" stroke-width="1.8"/>
+          <line x1="744" y1="195" x2="765" y2="195" stroke="#0D9488" stroke-width="1.8"/>
+        </svg>
+        <p class="caption">Azure Databricks Medallion Lakehouse orchestrated by Azure Data Factory (<code>Project_solution_architect.png</code> &amp; <code>ADF_parent_pipeline.png</code>).</p>
+      </div>
+
+      <div class="decision">
+        <h3>Three-stage engineering progression: from DROP PARTITION to Delta Lake MERGE</h3>
+        <dl>
+          <dt>Approach 1 (Evaluated)</dt><dd>Collecting distinct <code>race_id</code> values to the Spark driver and running <code>ALTER TABLE f1_silver.results DROP IF EXISTS PARTITION (race_id = ...)</code> in a loop before appending Parquet. Rejected because driver-side loops and sequential DDL calls are non-atomic if a job fails mid-loop.</dd>
+          <dt>Approach 2 (Intermediate)</dt><dd>Dynamic Partition Overwrite (<code>spark.sql.sources.partitionOverwriteMode = dynamic</code> + <code>insertInto</code> via <code>overwrite_partition()</code> in <code>common_functions.py</code>). Faster than Approach 1, but overwrites entire partitions on raw Parquet without ACID time-travel or row-level upserts.</dd>
+          <dt>Production Choice</dt><dd><strong>Delta Lake <code>MERGE INTO</code></strong> via <code>merge_delta_data()</code> with <code>spark.databricks.optimizer.dynamicPartitionPruning.enabled = true</code>. Matches on <code>(result_id, race_id)</code> to update amended rows in place and insert new race weekends atomically.</dd>
+          <dt>Trade-off accepted</dt><dd>Delta <code>MERGE</code> carries higher write amplification than blind append, so the merge condition explicitly includes the partition key (<code>targets.race_id = source.race_id</code>) to trigger Dynamic Partition Pruning.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-panel" id="panel-3" style="display:none">
+      <div class="panel-head"><span class="n">03</span><h2>Requirements Analysis</h2></div>
+      <p class="panel-intro">Ingesting 70+ years of historical sports records exposes edge cases in the raw data that break naive ETL pipelines — most notably 1950s shared-car rules that violate modern primary-key assumptions.</p>
+
+      <div class="decision">
+        <h3>Deduplicating 1950s shared-car entries before executing Delta Lake <code>MERGE INTO</code></h3>
+        <dl>
+          <dt>The data anomaly</dt><dd>In the 1950s Formula 1 World Championship, FIA regulations permitted two teammates to share a single car during a Grand Prix (or one driver to take over multiple cars in the same race). As a result, raw <code>results.json</code> contains multiple records with the exact same <code>(driver_id, race_id)</code> pair.</dd>
+          <dt>Why it breaks Delta Merge</dt><dd>Delta Lake's <code>MERGE INTO</code> requires the source DataFrame to be unique on the merge key; otherwise Spark throws <code>UnsupportedOperationException: Cannot perform Merge as multiple source rows matched and attempted to modify the same target row</code>.</dd>
+          <dt>Engineering Solution</dt><dd>Enforce <code>results_deduped_df = results_final_df.dropDuplicates(["driver_id", "race_id"])</code> in <code>5.ingest_results_file.py</code> prior to calling <code>merge_delta_data()</code>.</dd>
+          <dt>Trade-off accepted</dt><dd>Dropping secondary shared-car entries loses the secondary classification record for a handful of 1950s races in exchange for a strict <code>(driver_id, race_id)</code> grain across Silver and Gold.</dd>
+        </dl>
+      </div>
+
+      <h3 style="font-size:19px;margin:32px 0 14px">Operational &amp; governance requirements</h3>
+      <table class="req-table">
+        <tr><th>Requirement</th><th>Implementation Specification</th></tr>
+        <tr><td class="label">Cutover parameterization</td><td>Every ingestion and transformation notebook accepts <code>dbutils.widgets.text("parameter_file_date", "2021-03-21")</code> passed dynamically from Azure Data Factory pipeline parameters.</td></tr>
+        <tr><td class="label">ADF gatekeeper logic</td><td><code>ADF_pipeline_ingest_data</code> runs a <strong>Get Metadata</strong> activity (<code>exists</code> check) on the target cutover folder in ADLS Gen2 and wraps the 8 Databricks notebook activities inside an <strong>If Condition</strong> block so missing folders never trigger cluster spin-up.</td></tr>
+        <tr><td class="label">Partitioning strategy</td><td>Silver transactional tables partition by <code>race_id</code> (~1,050 partitions); Gold championship standings partition by <code>race_year</code> (72 partitions) to match BI query predicates.</td></tr>
+        <tr><td class="label">Secret &amp; mount security</td><td>Authenticates via Microsoft Entra ID Service Principal secrets fetched from Azure Key Vault via <code>dbutils.secrets.get(scope="formula1-scope", key=...)</code>, with support for Unity Catalog External Locations (<code>abfss://</code>).</td></tr>
+      </table>
+
+      <div style="margin-top:36px">
+        <h3 style="font-size:19px;margin-bottom:14px">The same lakehouse, three stakeholder lenses</h3>
+        <div class="role-tabs">
+          <button class="active" onclick="showRole(this, 'eng')">Data Engineer</button>
+          <button onclick="showRole(this, 'sci')">Motorsport Data Analyst</button>
+          <button onclick="showRole(this, 'biz')">Executive / Strategy Lead</button>
+        </div>
+        <div class="role-panel" id="role-eng"><span class="who">Data Engineer</span><p>Replacing full table reloads with parameterized Delta Lake <code>MERGE INTO</code> and Dynamic Partition Pruning means the Sunday evening post-race pipeline only touches the current season's partition and stays 100% idempotent on re-runs.</p></div>
+        <div class="role-panel" id="role-sci" style="display:none"><span class="who">Motorsport Data Analyst</span><p>Complex nested structures like <code>drivers.json</code> (<code>name STRUCT&lt;forename, surname&gt;</code>) and split multi-file folders (<code>lap_times_split_1..5.csv</code>) are flattened, typed, and joined into clean Gold tables ready for SQL window functions and Power BI.</p></div>
+        <div class="role-panel" id="role-biz" style="display:none"><span class="who">Executive / Strategy Lead</span><p>By separating official single-season FIA points from era-normalized <code>calculated_points</code>, leadership and media broadcasters can compare driver and constructor dominance across 70 years on a level mathematical playing field.</p></div>
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase-panel" id="panel-4" style="display:none">
+      <div class="panel-head"><span class="n">04</span><h2>Schema &amp; Data Design</h2></div>
+      <p class="panel-intro">The Medallion relational model (<code>RaceResults_ERD.png</code>) enforces explicit PySpark <code>StructType</code> definitions at the Bronze-to-Silver boundary so schema drift fails fast and lap-time formatting is preserved accurately.</p>
+
+      <div class="decision">
+        <h3>Key Schema &amp; Ingestion Design Decisions</h3>
+        <dl>
+          <dt>Qualifying Lap Strings</dt><dd><strong><code>Formula1/ingestion/8.ingest_qualifying_file.py</code>:</strong> Defines <code>qualifyId</code> and <code>constructorId</code> to match the raw multi-line JSON keys in <code>qualifying_split_*.json</code>, and types <code>q1</code>, <code>q2</code>, and <code>q3</code> as <code>StringType()</code> so formatted lap-time strings like <code>"1:26.572"</code> are preserved without <code>NULL</code> coercion.</dd>
+          <dt>Reusable Delta Utilities</dt><dd><strong><code>Formula1/includes/common_functions.py</code>:</strong> Centralizes <code>add_ingestion_date()</code>, <code>re_arrange_partition_column()</code>, <code>df_column_to_list()</code>, and <code>merge_delta_data()</code> so all 8 Silver notebooks and 4 Gold transformations share a single tested library via <code>%run "../includes/common_functions"</code>.</dd>
+          <dt>Results Schema &amp; Lineage</dt><dd><strong><code>Formula1/ingestion/5.ingest_results_file.py</code>:</strong> Enforces an 18-column <code>StructType</code> schema, normalizes camelCase fields (<code>raceId</code> → <code>race_id</code>, <code>positionText</code> → <code>position_text</code>), attaches <code>file_date</code> and <code>data_source</code> lineage columns, and drops redundant <code>statusId</code>.</dd>
+          <dt>Gold Upsert Mart</dt><dd><strong><code>Formula1/transformed/4.calculated_race_results.py</code>:</strong> Materializes <code>f1_gold.calculated_race_results</code> as a managed Delta table and executes an idempotent <code>MERGE INTO</code> on <code>(race_id, driver_id)</code> for every cutover batch.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- PHASE 5 -->
+    <div class="phase-panel" id="panel-5" style="display:none">
+      <div class="panel-head"><span class="n">05</span><h2>PySpark Development</h2></div>
+      <p class="panel-intro">Below is the core incremental merge and partition utility module in <code>Formula1/includes/common_functions.py</code> that powers both Silver ingestion and Gold championship aggregations.</p>
+
+      <h4 style="font-size:15px;margin:16px 0 8px">Shared Delta Lake &amp; Partition Library (<code>Formula1/includes/common_functions.py</code>)</h4>
+<pre><code>def re_arrange_partition_column(input_df, partition_column):
+    column_list = []
+    for column_name in input_df.schema.names:
+        if column_name != partition_column:
+            column_list.append(column_name)
+    column_list.append(partition_column)
+    return input_df.select(column_list)
+
+def df_column_to_list(input_df, column_name):
+    df_row_list = input_df.select(column_name).distinct().collect()
+    return [row[column_name] for row in df_row_list]
+
+def merge_delta_data(input_df, db_name, table_name, folder_path, merge_condition, partition_column):
+    from delta.tables import DeltaTable
+    spark.conf.set("spark.databricks.optimizer.dynamicPartitionPruning.enabled", "true")
+    if (spark._jsparkSession.catalog().tableExists(f"{db_name}.{table_name}")):
+        deltaTable = DeltaTable.forPath(spark, f"{folder_path}/{table_name}")
+        deltaTable.alias("targets").merge(
+            input_df.alias("source"),
+            merge_condition)\
+            .whenMatchedUpdateAll()\
+            .whenNotMatchedInsertAll()\
+            .execute()
+    else:
+        input_df.write.mode("overwrite").partitionBy(partition_column).format("delta").saveAsTable(f"{db_name}.{table_name}")</code></pre>
+    </div>
+
+    <!-- PHASE 6 -->
+    <div class="phase-panel" id="panel-6" style="display:none">
+      <div class="panel-head"><span class="n">06</span><h2>Quality &amp; Testing</h2></div>
+      <p class="panel-intro">Validation covers multi-batch incremental idempotency (<code>2021-03-21</code> → <code>2021-03-28</code> → <code>2021-04-18</code>), row-count reconciliation per <code>race_id</code>, and championship points parity against official FIA classifications.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>1. Cutover Idempotency Test</h3>
+          <p>Run <code>2021-03-28</code> (Bahrain GP, <code>race_id = 1052</code>) twice consecutively through <code>merge_delta_data()</code> and verify row count stays at exactly 20 drivers (<code>COUNT(1) = 20</code>), never 40.</p>
+          <span class="tag clear">Verified via SQL checks</span>
+        </div>
+        <div class="card">
+          <h3>2. Standings Window Verification</h3>
+          <p>Verify <code>driver_standings</code> for <code>race_year == 2020</code> matches FIA official classifications (Lewis Hamilton #1 with 347 pts, 11 wins; Valtteri Bottas #2 with 223 pts).</p>
+          <span class="tag clear">100% FIA Classification Match</span>
+        </div>
+        <div class="card">
+          <h3>3. Qualifying String Time Check</h3>
+          <p>Verify <code>q1</code>, <code>q2</code>, and <code>q3</code> lap time strings (e.g. <code>"1:26.572"</code>) in <code>qualifying_split_1.json</code> populate with zero unexpected <code>NULL</code> coercions under <code>StringType()</code> enforcement.</p>
+          <span class="tag blue">Schema Verified</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 7 -->
+    <div class="phase-panel" id="panel-7" style="display:none">
+      <div class="panel-head"><span class="n">07</span><h2>ADF Deployment</h2></div>
+      <p class="panel-intro">Orchestration is deployed via three modular Azure Data Factory pipelines (<code>ADF_parent_pipeline.png</code>, <code>ADF_pipeline_ingest_data.png</code>, <code>ADF_pipeline_transform_data.png</code>) backed by Azure Key Vault secrets.</p>
+
+      <table class="req-table">
+        <tr><th>Pipeline / Layer</th><th>Azure Deployment Configuration</th></tr>
+        <tr><td class="label">Parent Orchestrator (<code>pl_process_formula1_data</code>)</td><td>Chains <code>Execute Pipeline: pl_ingest_formula1_data</code> → on-success dependency → <code>Execute Pipeline: pl_transform_formula1_data</code>, triggered on a tumbling window schedule.</td></tr>
+        <tr><td class="label">Ingestion Child Pipeline</td><td>Uses <code>Get Metadata</code> (<code>Get Folder Details</code>) + <code>If Condition</code> (<code>If Folder Exists</code>) to execute all 8 ingestion notebooks in parallel on an Azure Databricks job cluster.</td></tr>
+        <tr><td class="label">Transformation Child Pipeline</td><td>Sequentially runs <code>1.race_results.py</code> first, then fans out to <code>2.driver_standings.py</code>, <code>3.constructor_standings.py</code>, and <code>4.calculated_race_results.py</code>.</td></tr>
+        <tr><td class="label">Storage &amp; Governance</td><td>Authenticates to ADLS Gen2 containers (<code>bronze</code>, <code>silver</code>, <code>gold</code>) via Azure Key Vault secret scopes and supports Unity Catalog External Locations with Azure Managed Identities.</td></tr>
+      </table>
+    </div>
+
+    <!-- PHASE 8 -->
+    <div class="phase-panel" id="panel-8" style="display:none">
+      <div class="panel-head"><span class="n">08</span><h2>Operations &amp; Ecosystem Evolution</h2></div>
+      <p class="panel-intro">Operating a sports analytics lakehouse in production requires adapting to upstream API lifecycle changes — most notably the retirement of the historical Ergast Developer API at the close of the 2024 season.</p>
+
+      <div class="decision">
+        <h3>Upstream Continuity: Jolpica-F1 &amp; FastF1 High-Frequency Telemetry</h3>
+        <dl>
+          <dt>Upstream Context</dt><dd>Following the scheduled sunset of the legacy Ergast API after 15 years of service, the lakehouse ingestion contract is designed so the Bronze landing structure remains decoupled from the upstream HTTP host.</dd>
+          <dt>Schema-Compatible Continuity</dt><dd>Pointing the ADF ingestion source to <strong>Jolpica-F1</strong> (the schema-compatible open-source successor to Ergast covering current FIA seasons) feeds the exact same 8 Bronze schemas without changing downstream Silver or Gold PySpark logic.</dd>
+          <dt>Telemetry Enrichment</dt><dd>Extends the Silver layer with <strong>FastF1 / OpenF1</strong> 3.7 Hz car telemetry (speed trace, throttle, brake, DRS activation, and tyre compound stint degradation) joined on <code>(race_id, driver_id, lap)</code>.</dd>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <h4>Sources &amp; Project References</h4>
+    <ol>
+      <li id="src1">FIA Formula 1 World Championship Sporting Regulations &amp; Classifications (1950–2026 Historical Points Systems): <a href="https://www.fia.com/events/fia-formula-one-world-championship/season-2026/2026-fia-formula-one-world-championship" target="_blank" rel="noopener">fia.com — FIA Formula One World Championship</a></li>
+      <li id="src2">Ergast Motor Racing Schema Specification &amp; Jolpica-F1 Successor Documentation: <a href="https://github.com/jolpica/jolpica-f1" target="_blank" rel="noopener">github.com/jolpica/jolpica-f1</a></li>
+      <li id="src3">Source Code, Databricks Notebooks &amp; Power BI Dashboards — Sithsaba Zantsi: <a href="https://github.com/siza94/F1-Data-Project" target="_blank" rel="noopener">github.com/siza94/F1-Data-Project</a></li>
+    </ol>
+    <p class="note">Formula 1 Azure Databricks Medallion Lakehouse — Engineering Lifecycle Report by Sithsaba Zantsi.</p>
+  </div>
+</footer>
+
+<script>
+function showPhase(btn, n) {
+  document.querySelectorAll('#tab-strip .tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.phase-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('panel-' + n).style.display = 'block';
+}
+function showRole(btn, id) {
+  document.querySelectorAll('.role-tabs button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.role-panel').forEach(p => p.style.display = 'none');
+  document.getElementById('role-' + id).style.display = 'block';
+}
+</script>
+
+</body>
+</html>
