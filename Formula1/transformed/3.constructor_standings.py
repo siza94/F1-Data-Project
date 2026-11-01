@@ -8,6 +8,10 @@ variable_file_date = dbutils.widgets.get("parameter_file_date")
 
 # COMMAND ----------
 
+# MAGIC %run "../includes/common_functions"
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC Find race years for which the data is to be reprocessed
 
@@ -59,7 +63,7 @@ display(final_df.filter("race_year == 2020").orderBy("rank"))
 
 # COMMAND ----------
 
-overwrite_partition(final_df, "f1_gold", "constructor_standings", "race_year")
+# overwrite_partition(final_df, "f1_gold", "constructor_standings", "race_year")
 
 # COMMAND ----------
 
