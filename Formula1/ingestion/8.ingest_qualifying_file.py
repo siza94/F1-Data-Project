@@ -18,19 +18,28 @@ variable_data_source = dbutils.widgets.get("parameter_data_source")
 
 # COMMAND ----------
 
+dbutils.widgets.text("parameter_file_date", "2021-03-21")
+variable_file_date = dbutils.widgets.get("parameter_file_date")
+
+# COMMAND ----------
+
 # MAGIC %run "../includes/configuration"
 
 # COMMAND ----------
 
-qualifying_schema = StructType([StructField("qualifyingId", IntegerType(), True), 
-                                StructField("raceId", IntegerType(), True), 
-                                StructField("driverId", IntegerType(), True), 
-                                StructField("construcorId", IntegerType(), True), 
-                                StructField("number", IntegerType(), True), 
-                                StructField("position", IntegerType(), True), 
-                                StructField("q1", IntegerType(), True), 
-                                StructField("q2", IntegerType(), True), 
-                                StructField("q3", IntegerType(), True)
+# MAGIC %run "../includes/common_functions"
+
+# COMMAND ----------
+
+qualifying_schema = StructType([StructField("qualifyId", IntegerType(), False),
+                                StructField("raceId", IntegerType(), True),
+                                StructField("driverId", IntegerType(), True),
+                                StructField("constructorId", IntegerType(), True),
+                                StructField("number", IntegerType(), True),
+                                StructField("position", IntegerType(), True),
+                                StructField("q1", StringType(), True),
+                                StructField("q2", StringType(), True),
+                                StructField("q3", StringType(), True)
                                ])
 
 # COMMAND ----------
@@ -38,7 +47,7 @@ qualifying_schema = StructType([StructField("qualifyingId", IntegerType(), True)
 qualifying_df = spark.read\
 .schema(qualifying_schema)\
 .option("multiline", True)\
-.json(f"{bronze_folder_path}/qualifying")
+.json(f"{bronze_folder_path}/{variable_file_date}/qualifying")
 
 # COMMAND ----------
 
@@ -47,18 +56,22 @@ qualifying_df = spark.read\
 
 # COMMAND ----------
 
-from pyspark.sql.functions import current_timestamp
+from pyspark.sql.functions import current_timestamp, lit
 
 # COMMAND ----------
 
-final_qualifying_df = qualifying_df.withColumnRenamed("raceId", "race_id")\
+final_qualifying_df = qualifying_df.withColumnRenamed("qualifyId", "qualify_id")\
+.withColumnRenamed("raceId", "race_id")\
 .withColumnRenamed("driverId", "driver_id")\
-.withColumn("ingestion_date", current_timestamp())
+.withColumnRenamed("constructorId", "constructor_id")\
+.withColumn("ingestion_date", current_timestamp())\
+.withColumn("data_source", lit(variable_data_source))\
+.withColumn("file_date", lit(variable_file_date))
 
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC #####Write ouput to processed container in parquet format
+# MAGIC #####Write output to processed container in Delta format
 
 # COMMAND ----------
 
