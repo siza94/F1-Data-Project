@@ -23,6 +23,10 @@ variable_data_source = dbutils.widgets.get("parameter_data_source")
 
 # COMMAND ----------
 
+# MAGIC %run "../includes/common_functions"
+
+# COMMAND ----------
+
 lap_times_schema = StructType([StructField("raceId", IntegerType(), True), 
                                StructField("driverId", IntegerType(), True), 
                                StructField("lap", IntegerType(), True), 
