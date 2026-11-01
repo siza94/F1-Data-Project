@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS f1_bronze.qualifying
   q2 STRING,
   q3 STRING,
   qualifyId INT,
-  raeId INT
+  raceId INT
 )
 USING json
 OPTIONS(path "/mnt/formula1sithsaba/bronze/qualifying", multiLine true)
